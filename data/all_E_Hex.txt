@@ -1,0 +1,697 @@
+;erim_hex1.hsb
+   # # #
+  #     #
+ #   $   #
+#   $   # # #
+ # $ #       #
+# #   $ @ #   #
+ # $   # #   #
+#     # #   #
+ #     #   #
+  # #   . #
+     # .   #
+    # . . . #
+     # # # #
+Title: erim_hex1-SameErim180.xsb-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex2.hsb
+           # #
+          #   #
+         #     #
+        #   *   #
+     # #   $ $   # #
+    #   #   #       #
+   #     #     #     #
+  #   $   # . #   .   #
+ #   $     # #     .   #
+#   $ # * . @ . * # .   #
+ #   $     # #     .   #
+  #   $   # . #   .   #
+   #     #     #     #
+    #   #   #       #
+     # #   $ $   # #
+        #   *   #
+         #     #
+          #   #
+           # #
+Title: erim_hex2-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex3.hsb
+  # # # # # # #
+ #             #
+#   $ $ $ # $   #
+ #   $ * . . . #
+# . # .   . # . #
+ # . . . * $   #
+#   $ # $ $ $   #
+ #             #
+  # # # . # # #
+ #             #
+#   $ $ $ # $   #
+ #   # * . . . #
+# . #   @   # . #
+ # . . . * #   #
+#   $ # $ $ $   #
+ #             #
+  # # # $ # # #
+ #             #
+#   $ $ $ # $   #
+ #   # # . .   #
+# . # .   . # . #
+ #   . . # #   #
+#   $ # $ $ $   #
+ #             #
+  # # # # # # #
+Title: erim_hex3-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex4.hsb
+    # # # # #
+   #         #
+  #   * * . $ # #
+   #   *   *     #
+  #   * * * *     #
+ #   *   @   *   #
+#     * * * *   #
+ #     *   *   #
+  # # $ . * *   #
+     #         #
+      # # # # #
+Title: erim_hex4-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex5.hsb
+        # # #
+     # #     # #
+    #   *       #
+   #   $ * * $   #
+  #   * .   . *   #
+ #   *   * *   *   #
+#   $ . * @ * . $   #
+ #   *   * *   * * #
+#     * .   . *     #
+ #   * $ * * $     #
+  # #           # #
+     # # # # # #
+Title: erim_hex5-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex6.hsb
+      # # # # #
+     #         #
+  # #   $ . $   #
+ #     * * * *   #
+#   # * . @ . *   #
+ #     * * * *   #
+  # #   $ . $   #
+     #         #
+      # # # # #
+Title: erim_hex6-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex7.hsb
+   # # # #
+  #       #
+ #   . .   #
+#   . $ .   #
+ #   . .   #
+  #   # @ #
+ #   $ $   #
+#   $ . $   #
+ #   $ $   #
+  #       #
+   # # # #
+Title: erim_hex7-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex8.hsb
+                   # #
+    # # # # # # # #   # # # # # #
+   #         #                   #
+  #   # # #   #   # #   # # #   #
+ #   #     #   #       #     #   #
+#   #   $   #   #     #   +   #   #
+ #   #   # #   # # #   # #   #     #
+  #   #       #     #           # #
+   #   #   # #       #   # #   #
+    #     # #   #             #
+     #   #           # # #   #
+    #           #           #
+     # # # #     # # # # # #
+            # # #
+Title: erim_hex8-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex9.hsb
+ # # #
+#     #
+ # $   #
+# . + #
+ # $   #
+#     #
+ # # #
+Title: erim_hex9-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex10.hsb
+    # # # #
+   #       #
+  #   * .   #
+   # * *   #
+  #   *   #
+ #   * *   #
+#     * @ #
+ # $   # #
+#     #
+ # # #
+Title: erim_hex10-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex11.hsb
+   # # # #
+  #     . #
+ #   $ *   #
+# . * @ $   #
+ #   $ *   #
+  #     . #
+   # # # #
+Title: erim_hex11-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex12.hsb
+   # # # # # #
+  #       .   #
+ #   * $ * *   #
+#   . * @ $     #
+ #   * $ * *   #
+  #       .   #
+   # # # # # #
+Title: erim_hex12-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex13.hsb
+   # # # #       # # #
+  #       #     #     # # #
+ #   # # * # # #   #       #
+#   #             $   *     #
+ #   # $   # #   #   #   #   #
+#   #     #     #   # # # #   #
+ #   # # * # * # * # . # . # @ #
+  #                           #
+   # # # # # # # #   # # #   #
+                  # #     # #
+Title: erim_hex13-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex14.hsb
+    # # # # #
+   # #   . # #
+  #   $   $ . #
+ # . @ # #     #
+# # $ #   # $ # #
+ #     # #   . #
+  # . $   $   #
+   # # .   # #
+    # # # # #
+Title: erim_hex14-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex15.hsb
+    # # # # #
+   # #   . # #
+  #     $   . #
+ # . $ * * $   #
+# #   * @ *   # #
+ #   $ * * $ . #
+  # .   $     #
+   # # .   # #
+    # # # # #
+Title: erim_hex15-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex16.hsb
+ # # #     # #
+# .   #   #   #
+ # $   # #     #
+  # $   $ $     #
+ #     $ $ $   #
+#     $     $ #
+ #   $   * @ # # # # #
+  # # # . . . . . . . #
+       # . . # # # # #
+        # # #
+Title: erim_hex16-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex17.hsb
+  # # # #
+ #       #
+#   * *   #
+ #   .   #
+  # * * #
+ #   .   #
+#     $   #
+ # * $ * #
+  #     #
+   # @ #
+    # #
+Title: erim_hex17-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex18.hsb
+ # # # # # #
+#           #
+ #   $ $   #
+  #       #
+ # * * * * #
+#           #
+ # * * * * #
+#     @     #
+ # # . . # #
+    # # #
+Title: erim_hex18-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex19.hsb
+       # #   # # # # #
+      #   # #         #
+ # # #   *   * * $ *   #
+# + . *   *           #
+ # # #   *   * * $ *   #
+      #   # #         #
+       # #   # # # # #
+Title: erim_hex19-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex20.hsb
+ # # #
+#     # # # # #
+ # $   $   $ @ #
+#   *   *   . #
+ #   *   . # #
+#     . # #
+ # # # #
+Title: erim_hex20-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex21.hsb
+   # # # #
+  #       # # #
+ #   * *   *   #
+#   * @ #     #
+ #   # *   #   #
+  #       *   #
+   # # # #   #
+          # #
+Title: erim_hex21-StartWithEndPosition-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex22.hsb
+           # # #
+    # # # #   . #
+   # . $     $ $ #
+  #   $   # #     # #
+   #   #   .   #     #
+  #   # . * * . # $ . #
+ # $     * @ *     $ #
+# . $ # . * * . #   #
+ #     #   .   #   #
+  #       # #   $   #
+   # # $ $     $ . #
+      # .   # # # #
+       # # #
+Title: erim_hex22-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex23.hsb
+        # # #
+     # #     # #
+  # #     $     # #
+ #     * . $ *     #
+#   $ $ . * . . $   #
+ #   . * * * * $   #
+#   * . * @ * . *   #
+ #   $ * * * * .   #
+#   $ . . * . $ $   #
+ #     * $ . *     #
+  # #     $     # #
+     # #     # #
+        # # #
+Title: erim_hex23-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex24.hsb
+         # # #
+      # #     # #
+     #       *   #
+    #     * .     #
+ # # * * * * * $   #
+#   $ . * @ * . $   #
+ #   $ * * * * * # #
+  #     . *     #
+   #   *       #
+    # #     # #
+       # # #
+Title: erim_hex24-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex25.hsb
+    # # # #
+   #       #
+  #   * *   #
+ #   *   *   #
+# . * * * * . #
+ # # *   *   #
+  #   $ $   #
+   #   @   #
+    # # # #
+Title: erim_hex25-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex26.hsb
+       # # #
+  # # #     # # #
+ #     .   .     #
+  # $ $ $ $ $ $ #
+ #   $   *   $   #
+#   * * * * * *   #
+ #   .   @   .   #
+  # . . # # . . #
+   # # #   # # #
+Title: erim_hex26-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex27.hsb
+       # #
+  # # #   #
+ #   # $ . #
+#     * .   #
+ #   $ *   #
+  # $ . # #
+ #   $ . #
+  #   @ #
+   # # #
+Title: erim_hex27-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex28.hsb
+  # #
+ #   #
+#   $ # # #
+ #   . * . #
+  #   # *   #
+   #   $   #
+    #   @ #
+     # # #
+Title: erim_hex28-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex29.hsb
+   # # # #
+  # . .   #
+ # * * *   #
+# . . # $   #
+ # #     $   #
+# @ # $ $   #
+ #         #
+  # # # # #
+Title: erim_hex29-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex30.hsb
+     # #
+    # . #
+   #   . #
+  #   $ $ #
+ #   $ $ . #
+#     * . . #
+ # # * $ # #
+    # @ #
+     # #
+Title: erim_hex30-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex31.hsb
+        # # # #
+       #       #
+        # $   $ # #
+       # $         #
+# # # #   # * . # $ # # #
+ #   $ $   . . . . . $   #
+  #       # . . # # #   $ # #
+   # # $   # # # . . #       #
+      #   $ . . . . .   $ $   #
+       # # # $ # . * #   # # # #
+            #         $ #
+             # # $   $ #
+                #     @ #
+                 # # # #
+Title: erim_hex31-third collection
+Author: Erim SEVER from TURKEY & Sven EGEVAD <sven.egevad@telia.com> from sharpen "xsb" collection
+
+;erim_hex32.hsb
+       # # #
+      # .   # # # #
+     #   *   *   . #
+      #   $ $ $ $   #
+       # .   *   *   #
+        # # # # @ . #
+               # # #
+Title: erim_hex32-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex33.hsb
+      # # # #
+     #       #
+  # # $ . . $ # #
+ #     . * .     #
+#     # $ $ *     #
+ #   # # @ # # # #
+  # #   # #
+Title: erim_hex33-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex34.hsb
+   # #     # #
+  #   #   #   #
+ # .   # #   . #
+#   $ $ * $ $   #
+ #     . .   @ #
+  # # # # # # #
+Title: erim_hex34-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex35.hsb
+     # # #
+  # #     # #
+ #   . . *   #
+#   $ $ $ $   #
+ #   * . . @ #
+  # # # # # #
+Title: erim_hex35-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex36.hsb
+   # # # # #
+  #         #
+ #   $ . $   #
+#   . # #     #
+ # $ # + *   #
+#   . * *     #
+ #   $ . $   #
+  #   # #   #
+   # #   # #
+Title: erim_hex36-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex37.hsb
+   # # # #
+  # .   . #
+ #   $ $ #
+# . $ $ @ #
+# #   $ . #
+   # . # #
+    # #
+Title: erim_hex37-for kids-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex38.hsb
+   # # # #
+  #   . . #
+ #   # $ . #
+#   # #   #
+ #   # $   #
+  #   $   #
+   #     @ #
+    # # # #
+Title: erim_hex38-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex39.hsb
+  # # #
+ # .   # #
+# . .     #
+ # .     #
+  # # #   #
+   # # $   #
+    #   *   #
+   #   $ $   #
+    #   *     #
+     #   $   #
+      #   @ #
+       # # #
+Title: erim_hex39-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex40.hsb
+  # # # # # # # # #
+ #         @       #
+#   $ $ $ $ $ $ $ #
+ #   * * * * * * * #
+#   . . . . . . . #
+ #                 #
+  # # # # # # # # #
+Title: erim_hex40-forkids-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex41.hsb
+      # # #
+     #   . #
+  # # $ # . #
+ #   *   * . #
+#   $ #   # + #
+ #     $   # #
+  #     $   #
+   #       #
+    # # # #
+Title: erim_hex41-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex42.hsb
+     # #
+  # # . #
+ #   *   #
+#   * * #
+ #   $   #
+  #   @   #
+   # # # #
+Title: erim_hex42-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex43.hsb
+          # #
+   # # # #   #
+  #           #
+   #   $   $   # #
+  #   $ # # $     #
+ #     # . # $   #
+#   $ # . #     #
+ #   # . # $   #
+  # # . .   . . #
+     # # @ # # #
+        # #
+Title: erim_hex43-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex44.hsb
+             # #
+      # # # # . #
+     #     # # . #
+  # #   *   # # * #
+ #   $   *   #   . #
+#     $   *   *     #
+ # $   #   # # #     #
+# @ # # # #     # # #
+ # #
+Title: erim_hex44-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex45.hsb
+     # # #
+    #     #
+   #   $   #
+    # * #   #
+     #     #
+  # # # * @ #
+ #     *   #
+#   # *   #
+ #       #
+# . * * #
+ #       #
+  # # # #
+Title: erim_hex45-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex46.hsb
+           # # #
+    # # # #     #
+   #             #
+  #   $ #   # # #
+   # . # . #
+  # $ * * . #
+ # . $   $   #
+#     @ #   #
+ # # # # # #
+Title: erim_hex46-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex47.hsb
+  # # #   # #
+ #     # #   #
+#     $ @ *   #
+ #   # * $     #
+  # #   #     #
+ # .   $ # # #
+# . .     #
+ # # # # #
+Title: erim_hex47-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex48.hsb
+       # # # #
+      # .     #
+   # # # * #   #
+  #       #   #
+ #   # @ *   #
+#   # # * *   #
+ #     # $   #
+  # #       #
+     # # # #
+Title: erim_hex48-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex49.hsb
+ # # #
+# @   # #
+ # $     # #
+  #         #   # # # #
+ #   $   $   # #     . #
+  # # # $ #   #   . . #
+     #   # $     . . #
+      #           # #
+       # # # # # #
+Title: erim_hex49-third collection
+Author: Erim SEVER from TURKEY
+
+;erim_hex_nr1.hsb
+   # # #
+  #     #
+ #   $   #
+#   $   # # #
+ # $ #       #
+# #   $ @ #   #
+ # $   # #   #
+#     # #   #
+ #     #   #
+  # #   . #
+     # .   #
+    # . . . #
+     # # # #
+Title: erim_hex_nr1-SameErim_nr38.xsb-third collection
+Author: Erim SEVER from TURKEY
+Comment:
+boxorder 1 99 99 99 2
+goalorder 99 99 1 2 99
+Comment-End:

@@ -1,0 +1,238 @@
+Author: François Marques
+WEB   : http://hexoban.online.fr/
+Mail  : hexoban@online.fr
+Collection: Heloban
+
+     # #
+    #   # # #
+ # #   $ $   #
+#     . .   #
+ # $ . @ .   #
+  # $ . . $   #
+ #       $ # #
+  # # #   #
+       # #
+Title: The circular saw
+Date: 2002/02/07
+Difficulty: 2
+
+     # #
+  # #   # # #
+ #     $ $   #
+#   # . . #   #
+ # $ . @ .   #
+  # $ . . $   #
+ #     # $ # #
+  # #     #
+     # # #
+Title: The coil toothed
+Date: 2002/02/07
+Difficulty: 3.5
+
+     # # #
+  # # +   #
+ #       #
+  # *   #
+ # * $ #
+#       #
+ #     #
+  # # #
+Title: heloban 3
+Date: 2002/02/10
+Difficulty: 3.5
+
+  # # # # # #
+ #     #     #
+#     * *     #
+ #   * . *   #
+  #   * *   #
+ #   $   @   #
+  #   # #   #
+   # #   # #
+Title: The butterfly
+Date: 2002/02/06
+Difficulty: 4.5
+
+       # #
+      #   #
+     #     #
+  # # $ . #
+ #   * @   #
+#   $ * #   #
+ #     .   #
+  # # # # #
+Title: heloban 4
+Date: 2002/02/10
+Difficulty: 4
+
+     # # #
+    #     # # # #
+ # #   #   $     #
+#     * *       #
+ #   * + # # # #
+  #   #   #
+ #       #
+  # # # #
+Title: The arm
+Date: 2002/02/05
+Difficulty: 4.5
+
+      # # #
+     #     #
+  # #   $   #
+ #     * * # #
+#     * # +   #
+ # #   # #     #
+    #         #
+     # # # # #
+Title: Heloban 2
+Date: 2002/02/07
+Difficulty: 4.5
+
+     # #
+    #   #
+ # #     # # #
+#     * *     #
+ #   * $ *     #
+#     * +     #
+ # # # # # # #
+Title: The submarine
+Date: 2002/02/12
+Difficulty: 5
+
+     # # #
+    #     #
+ # #     #
+#     * $ # # #
+ #   * * *     #
+#     + *     #
+ # # #     # #
+    #     #
+     # # #
+Title: Heloban 5
+Date: 2002/02/12
+Difficulty: 5.5
+
+         # # #
+  # # # #     #
+ #     #   $   #
+#   $ * + *   #
+ #     . . # #
+  # # # *     #
+     #   $   #
+      #     #
+       # # #
+Title: The trefle
+Date: 2002/02/13
+Difficulty: 4.5
+
+  # #
+ #   # #
+#       # 
+ #   * . # #
+  # $ * $ @ #
+ #   * .   #
+#     #     #
+ #   # #   #
+  # #   # #
+Title: The arrow
+Date: 2002/02/15
+Difficulty: 4
+
+        # # #                     
+       #     #                     
+  # # #   #   # # #               
+ #     # $ $       #               
+#   # $ . . . $ #   #             
+ #   $ .   # . $   #               
+  #   . # @   . # #               
+ #   $ .   # . $   #               
+#   # $ . . . $ #   #             
+ #     # $ $       #               
+  # # #   #   # # #               
+       #     #                     
+        # # # 
+Title: The flower
+Date: 2002/02/17
+Difficulty: 4
+
+  # #
+ #   # # #
+#   $ $   # #
+ #   + # .   #
+#   $ $     #
+ # # # . . #
+      #     #
+       # # #
+Title: Heloban 1
+Date: 2002/02/18
+Difficulty: 4
+
+       # # #
+      #     #
+ # # #     # # #
+#   $ * + * $   #
+ #     . .     #
+  # # $ . $ # #
+     #     #
+      # # #
+Title: The eagle
+Date: 2002/02/19
+Difficulty: 5
+
+   # #     # #
+  #   #   #   #
+ #     # #     #
+#   . $ . .   $ # #
+ #   $ # # # $     #
+  # # . # # $       #
+     # .   @ # # # #
+      # # # #
+Title: The lake in the mountains
+Date: 2002/02/20
+Difficulty: 4.5
+
+    # # # # #
+ # #     +   #
+#     $ # # $ # # #
+ #     * . *       #
+#     #     #     #
+ # # # # # # # # #
+Title: The futuristic car
+Date: 2002/02/27
+Difficulty: 4
+
+   # # #
+  # @ . # #
+ #   #     #
+#   $ *     #
+ # #     # #
+    #   #
+     # #
+Title: Heloban 6
+Date: 2002/02/27
+Difficulty: 2
+
+       # #
+      #   #
+ # # # $ @ # #
+#     $ . $   #
+ #     . .   #
+  # # # # # #
+Title: The little tank
+Date: 2002/03/01
+Difficulty: 3
+
+    # # # #
+ # #       #
+#   $ # # . #
+ #     @   #
+  #   # * # # #
+ #   # # .     #
+  #   $   . $ #
+   # # # #     #
+          #   #
+           # #
+Title: &
+Date: 2002/03/02
+Difficulty : 5
