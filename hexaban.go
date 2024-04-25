@@ -1,40 +1,64 @@
 // Hexaban (some know it as Hexoban to match the 'o' in Sokoban).
 //
 // Structures for representing the initial state and sequence of moves
-// for the solitaire game that is a hexagonal representation of the classic
-// known as Sokoban.
+// for the solitaire game that is a hexagonal variant of the classic
+// puzzle known as Sokoban ("warehouse worker," the crate pusher).
 
-package main
+package hexaban
 
 import (
 	"encoding/json"
 )
 
 type Collection struct {
-	Puzzles []HexabanPuzzle `json:"puzzles"`
-	Source  string          `json:"source"`
-	Author  string          `json:"author,omitempty"`
+	Puzzles []Puzzle `json:"puzzles"`
+	Source  string   `json:"source"`
+	Author  string   `json:"author,omitempty"`
 }
 
-type HexabanPuzzle struct {
-	Identity string      `json:"id"`
-	Author   string      `json:"author"`
-	Name     string      `json:"name"`
-	Terrain  []HexCoord  `json:"terrain"`
-	Init     HexabanInit `json:"init"`
+type Puzzle struct {
+	Identity string     `json:"id"`
+	Author   string     `json:"author"`
+	Name     string     `json:"name"`
+	Terrain  []HexCoord `json:"terrain"`
+	Init     Init       `json:"init"`
 }
 
-type HexabanInit struct {
+type Init struct {
 	Walls  []HexCoord `json:"walls,omitempty"`
 	Goals  []HexCoord `json:"goals"`
 	Crates []HexCoord `json:"crates"`
 	Player HexCoord   `json:"ichiban"`
 }
 
+type Tile interface {
+	I() int
+	J() int
+	Type() TileType
+}
+
 // This assumes that the rectangular coordinates collapse each pair of rows
 // into a common row coordinate, aligning the columns, and that hexes have
 // their orientation such that up/down movement is possible (the other four
 // directions are left/right and north/south).
+//
+// .           up           |
+// .    left _---_ north    | 0,0     2,0
+// .        <_   _>         |     1,0     3,0
+// .   south  ```  right    | 0,1     2,1
+// .          down          |     1,1     3,1
+//
+// The selection of cardinal directions is arbitrary, this is good as any.  But
+// notice that sometimes a column difference of |1| is a movement `right`, and
+// sometimes it is a movement `north`.  Likewise, rows are always down, but
+// their position when projected onto a canvas is higher or lower based on
+// their column (despite the higher/lower dimension being a row-order feature!).
+//
+// For this reason, the rectilinear format is abandoned in favor of a coordinate
+// system based on `right` and `south` directions, as `HexCoord`.  The RectCoord
+// is still needed for parsing and converting maps defined elsewhere using this
+// format.  There are many instances of this because the rectangular coordinates
+// are easier to map to memory and can be printed to line-based consoles easily.
 type RectCoord struct {
 	col uint
 	row uint
@@ -101,3 +125,43 @@ func (coord *HexCoord) UnmarshalJSON(encoded []byte) error {
 	coord.j = array2D[1]
 	return nil
 }
+
+type TileType string
+
+const (
+	TILE_FLOOR  TileType = "FLOOR"
+	TILE_WALL   TileType = "WALL"
+	TILE_GOAL   TileType = "GOAL"
+	TILE_CRATE  TileType = "CRATE"
+	TILE_PLAYER TileType = "PLAYER"
+)
+
+type Wall struct {
+	HexCoord
+}
+
+func (tile Wall) Type() TileType { return TILE_WALL }
+
+type Floor struct {
+	HexCoord
+}
+
+func (tile Floor) Type() TileType { return TILE_FLOOR }
+
+type Crate struct {
+	HexCoord
+}
+
+func (tile Crate) Type() TileType { return TILE_CRATE }
+
+type Goal struct {
+	HexCoord
+}
+
+func (tile Goal) Type() TileType { return TILE_GOAL }
+
+type Player struct {
+	HexCoord
+}
+
+func (tile Player) Type() TileType { return TILE_PLAYER }

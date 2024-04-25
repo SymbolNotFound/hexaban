@@ -8,7 +8,7 @@
 
 // known as Sokoban.
 
-package main
+package hexaban
 
 import (
 	"testing"
@@ -43,9 +43,9 @@ func TestRectCoord_ToHexCenteredAt(t *testing.T) {
 	}{
 		{"zero", RectCoord{0, 0}, HexCoord{0, 0}, HexCoord{0, 0}},
 		{"i", RectCoord{1, 0}, HexCoord{0, 0}, HexCoord{1, 0}},
-		{"i", RectCoord{1, 0}, HexCoord{2, 2}, HexCoord{-1, -2}},
-		{"i+j", RectCoord{0, 1}, HexCoord{3, 2}, HexCoord{-2, -1}},
-		{"3i - j", RectCoord{4, 1}, HexCoord{3, -1}, HexCoord{0, 0}},
+		{"i (recentered)", RectCoord{1, 0}, HexCoord{2, 2}, HexCoord{-1, -2}},
+		{"i+j (recentered)", RectCoord{0, 1}, HexCoord{3, 2}, HexCoord{-2, 1}},
+		{"3i - j at center", RectCoord{4, 1}, HexCoord{3, -1}, HexCoord{0, 0}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
