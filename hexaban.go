@@ -1,10 +1,26 @@
+// Copyright (c) 2024 Symbol Not Found L.L.C.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// github:SymbolNotFound/hexaban/hexaban.go
+
+package hexaban
+
 // Hexaban (some know it as Hexoban to match the 'o' in Sokoban).
 //
 // Structures for representing the initial state and sequence of moves
 // for the solitaire game that is a hexagonal variant of the classic
 // puzzle known as Sokoban ("warehouse worker," the crate pusher).
-
-package hexaban
 
 import (
 	"encoding/json"
@@ -18,22 +34,24 @@ type Collection struct {
 
 type Puzzle struct {
 	Identity string     `json:"id"`
-	Author   string     `json:"author"`
 	Name     string     `json:"name"`
+	Author   string     `json:"author"`
+	Source   string     `json:"source"`
 	Terrain  []HexCoord `json:"terrain"`
 	Init     Init       `json:"init"`
 }
 
 type Init struct {
-	Walls  []HexCoord `json:"walls,omitempty"`
+	// All goals and crates need to be on coordinates where terrain exists.
 	Goals  []HexCoord `json:"goals"`
 	Crates []HexCoord `json:"crates"`
-	Player HexCoord   `json:"ichiban"`
+	Player HexCoord   `json:"ichiban,omitempty"` // Default is (0, 0)
 }
 
 type Tile interface {
 	I() int
 	J() int
+	Coord() HexCoord
 	Type() TileType
 }
 
@@ -42,11 +60,13 @@ type Tile interface {
 // their orientation such that up/down movement is possible (the other four
 // directions are left/right and north/south).
 //
-// .           up           |
-// .    left _---_ north    | 0,0     2,0
+// .           up           /===================== rect{col, row}
+// .    left _---_ north    | 0,0     2,0     4,0
 // .        <_   _>         |     1,0     3,0
-// .   south  ```  right    | 0,1     2,1
+// .   south  ```  right    | 0,1     2,1     4,1
 // .          down          |     1,1     3,1
+// .                        | 0,2     2,2     4,2
+// rect{6,1} = hex{4,2}     \     ...     ...
 //
 // The selection of cardinal directions is arbitrary, this is good as any.  But
 // notice that sometimes a column difference of |1| is a movement `right`, and
@@ -62,6 +82,10 @@ type Tile interface {
 type RectCoord struct {
 	col uint
 	row uint
+}
+
+func NewRectCoord(col, row uint) RectCoord {
+	return RectCoord{col, row}
 }
 
 // Converts a rectangular coordinate into the equivalent hexagonal coordinate.
@@ -101,8 +125,13 @@ type HexCoord struct {
 }
 
 // Accessors are read-only, the coordinate can only be changed by this package.
-func (coord HexCoord) I() int { return coord.i }
-func (coord HexCoord) J() int { return coord.j }
+func (coord HexCoord) I() int          { return coord.i }
+func (coord HexCoord) J() int          { return coord.j }
+func (coord HexCoord) Coord() HexCoord { return coord }
+
+func NewHexCoord(i, j int) HexCoord {
+	return HexCoord{i, j}
+}
 
 // Serialize the HexCoord value as a JSON formatted byte slice.
 // NOTE: Does not need to be used directly, will be inferred by a parent
@@ -126,6 +155,12 @@ func (coord *HexCoord) UnmarshalJSON(encoded []byte) error {
 	return nil
 }
 
+// Facilitates the different types of tiles that may appear at a map coordinate.
+// While the text-file representation overlaps multiple tile types with the same
+// glyph, with this representation each crate is separate from each goal, having
+// distinct object representations for each (and the player).  Meanwhile, walls
+// are temporary (they become implicit in the JSON representation) and likewise,
+// floors are there to assert which coordinates are valid for goal/crate/player.
 type TileType string
 
 const (
@@ -136,32 +171,36 @@ const (
 	TILE_PLAYER TileType = "PLAYER"
 )
 
-type Wall struct {
-	HexCoord
-}
+type Floor struct{ HexCoord }
+type Wall struct{ HexCoord }
+type Goal struct{ HexCoord }
+type Crate struct{ HexCoord }
+type Player struct{ HexCoord }
 
-func (tile Wall) Type() TileType { return TILE_WALL }
-
-type Floor struct {
-	HexCoord
-}
-
-func (tile Floor) Type() TileType { return TILE_FLOOR }
-
-type Crate struct {
-	HexCoord
-}
-
-func (tile Crate) Type() TileType { return TILE_CRATE }
-
-type Goal struct {
-	HexCoord
-}
-
-func (tile Goal) Type() TileType { return TILE_GOAL }
-
-type Player struct {
-	HexCoord
-}
-
+func (tile Floor) Type() TileType  { return TILE_FLOOR }
+func (tile Wall) Type() TileType   { return TILE_WALL }
+func (tile Goal) Type() TileType   { return TILE_GOAL }
+func (tile Crate) Type() TileType  { return TILE_CRATE }
 func (tile Player) Type() TileType { return TILE_PLAYER }
+
+// Adds the provided tiles to this puzzle, some validation is performed.
+func (puzzle *Puzzle) AddTiles(tiles []Tile) error {
+	for _, tile := range tiles {
+		switch tile.Type() {
+		case TILE_FLOOR:
+			puzzle.Terrain = append(puzzle.Terrain, tile.Coord())
+		case TILE_WALL:
+			// Walls can be inferred by positions not existing in the terrain,
+			// they do not even need to be rendered, but may be inferred from
+			// any tile adjacent to a Terrain coordinate that is not in Terrain.
+			continue
+		case TILE_GOAL:
+			puzzle.Init.Goals = append(puzzle.Init.Goals, tile.Coord())
+		case TILE_CRATE:
+			puzzle.Init.Crates = append(puzzle.Init.Crates, tile.Coord())
+		case TILE_PLAYER:
+			puzzle.Init.Player = tile.Coord()
+		}
+	}
+	return nil
+}

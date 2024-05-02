@@ -1,11 +1,27 @@
+// Copyright (c) 2024 Symbol Not Found L.L.C.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// github:SymbolNotFound/hexaban/cmd/convert-levels/hexparse.go
+
 package main
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/SymbolNotFound/hexaban"
 )
@@ -20,6 +36,14 @@ type CollectionFactory struct {
 	OutputPath string
 	ParseFn    ParseFn
 }
+
+// Composite of multiple errors, for parsing as many puzzles as possible.
+type errorGroup struct {
+	errors []string
+}
+
+func (errs errorGroup) Error() string           { return strings.Join(errs.errors, "\n") }
+func (errs *errorGroup) AddError(errstr string) { errs.errors = append(errs.errors, errstr) }
 
 func main() {
 	for _, factory := range FileMetadata() {
@@ -110,43 +134,10 @@ func FileMetadata() []CollectionFactory {
 	}
 }
 
-// A file converter for the DWS puzzle set by David W. Skinner.
-func convertDWS(text []byte, collection hexaban.Collection) ([]hexaban.Puzzle, error) {
-	puzzles := make([]hexaban.Puzzle, 0)
-	parser := hexaban.NewParser(text)
-	parser.Expect("; Hexobans by David W. Skinner")
-	if !parser.ExpectLines(2) {
-		return puzzles, errors.New("expected a double-newline after the file header")
-	}
-
-	var err error = nil
-	errors := make([]error, 0)
-
-	for !parser.EOF() {
-		puzzle := hexaban.Puzzle{}
-		puzzle.Author = "David W. Skinner"
-		puzzle.Name = parser.ExpectQuotedString()
-		if puzzle.Name == "" {
-			errors = append(errors,
-				fmt.Errorf("expected a quoted string for the level name %d", len(puzzles)))
-			continue
-		}
-		if err != nil {
-			return puzzles, err
-		}
-		err = parser.ParseLevelDefinition(&puzzle)
-		if err != nil {
-			return puzzles, err
-		}
-		puzzles = append(puzzles, puzzle)
-	}
-
-	return puzzles, nil
-}
-
 func parseMore(text []byte, collection hexaban.Collection) ([]hexaban.Puzzle, error) {
+	puzzles := make([]hexaban.Puzzle, 0)
 	// TODO
-	return nil, nil
+	return puzzles, nil
 }
 
 func parseNYI(text []byte, collection hexaban.Collection) ([]hexaban.Puzzle, error) {
