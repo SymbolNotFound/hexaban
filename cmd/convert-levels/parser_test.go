@@ -82,3 +82,52 @@ func TestPuzzleParser_ParseTextGrid(t *testing.T) {
 		})
 	}
 }
+
+func TestPuzzleParser_ParseProperty(t *testing.T) {
+	puzzle := []byte(`
+          # # # 
+         #     # 
+        # $ .   # 
+   # # #   *   # 
+  # #   $ . $ # 
+ # @ . * . .   # 
+  #   $   $ * $ # 
+   # # # #   .   # 
+          #     # 
+           # # #
+Author: David Holland
+Source: morehex.hsb
+`[1:])
+	parser := NewParser(puzzle)
+	authorKey := "Author"
+	authorExpect := "David Holland"
+
+	sourceKey := "Source"
+	sourceExpect := "morehex.hsb"
+
+	t.Run("", func(t *testing.T) {
+		if got := parser.ParseProperty(authorKey); got != authorExpect {
+			t.Errorf("PuzzleParser.ParseProperty() = %v, want %v", got, authorExpect)
+		}
+
+		if string(parser.filedata) != `
+          # # # 
+         #     # 
+        # $ .   # 
+   # # #   *   # 
+  # #   $ . $ # 
+ # @ . * . .   # 
+  #   $   $ * $ # 
+   # # # #   .   # 
+          #     # 
+           # # #
+Source: morehex.hsb
+`[1:] {
+			t.Errorf("resulting puzzle definition should have its property removed. got:\n%s", parser.filedata[parser.cursor:])
+		}
+
+		if got := parser.ParseProperty(sourceKey); got != sourceExpect {
+			t.Errorf("PuzzleParser.ParseProperty() = %v, want %v", got, sourceExpect)
+		}
+	})
+}

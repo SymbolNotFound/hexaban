@@ -60,7 +60,7 @@ func convertDWS(text []byte, collection hexaban.Collection) ([]hexaban.Puzzle, e
 		grid_parser := NewParser(parser.NextSection())
 		if !grid_parser.BytesAvailable(2) {
 			errors.AddError("not enough data for a puzzle definition")
-			continue
+			break
 		}
 		tiles, err := grid_parser.ParseTextGrid()
 		if err != nil {

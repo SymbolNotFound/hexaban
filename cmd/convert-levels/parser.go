@@ -95,6 +95,36 @@ func (parser *PuzzleParser) NextQuotedString() string {
 	return string(match)
 }
 
+// Finds the occurrence of a key-value property definition (Name: Value) and
+// returns the value.  Removes the line containing the property from filedata.
+// If there is no such matching property, an empty string is returned instead.
+func (parser *PuzzleParser) ParseProperty(propName string) string {
+	if !parser.BytesAvailable(len(propName) + 3) {
+		return ""
+	}
+	pattern := fmt.Sprintf("\\n%s: %s", propName, `[^\n]*\n?`)
+	matcher := regexp.MustCompile(pattern)
+	location := matcher.FindIndex(parser.filedata[parser.cursor:])
+	if location == nil {
+		return ""
+	}
+
+	// extract value from filedata
+	begin := parser.cursor + uint(location[0]) + uint(len(propName)) + 3
+	end := parser.cursor + uint(location[1])
+	value := string(parser.filedata[begin:end])
+	// Trim trailing newline if it exists.
+	if value[len(value)-1] == '\n' {
+		value = value[:len(value)-1]
+	}
+
+	// remove the match location from filedata
+	begin = parser.cursor + uint(location[0]) + 1
+	parser.filedata = append(parser.filedata[parser.cursor:begin], parser.filedata[end:]...)
+
+	return value
+}
+
 // Reads the next section of filedata.
 //
 // Returns the contents of filedata until the next "\n\n" as []byte (suitable for

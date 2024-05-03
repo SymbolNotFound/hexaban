@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"regexp"
 	"strings"
 
 	"github.com/SymbolNotFound/hexaban"
@@ -66,12 +67,20 @@ func main() {
 		}
 
 		for _, hex_puzzle := range collection.Puzzles {
-			json, err := json.Marshal(hex_puzzle)
+			json, err := json.MarshalIndent(hex_puzzle, "", "  ")
 			if err != nil {
 				fmt.Println(err)
 				continue
 			}
-			err = os.WriteFile(path.Join(factory.OutputPath, hex_puzzle.Identity), json, 0644)
+			json = regexp.MustCompile(`\[\n\s+(-?\d+)`).ReplaceAll(json, []byte("[$1"))
+			json = regexp.MustCompile(`\[(-?\d+),\n\s+`).ReplaceAll(json, []byte("[$1, "))
+			json = regexp.MustCompile(`(-?\d+)\n\s+\]`).ReplaceAll(json, []byte("$1]"))
+			json = regexp.MustCompile(`(-?\d+\],?)\n\s+`).ReplaceAll(json, []byte("$1 "))
+			json = regexp.MustCompile(`\] ([\]}])`).ReplaceAll(json, []byte("]\n  $1"))
+
+			err = os.WriteFile(
+				fmt.Sprintf("%s.json", path.Join(factory.OutputPath, hex_puzzle.Identity)),
+				json, 0644)
 			if err != nil {
 				fmt.Println(err)
 				continue
@@ -94,55 +103,95 @@ func FileMetadata() []CollectionFactory {
 			"http://hexoban.online.fr/",
 			"data/heloban.hsb",
 			"levels/heloban/",
-			parseNYI,
+			convertMarques,
 		},
 		{
 			"François Marques",
 			"http://hexoban.online.fr/",
 			"data/heroban.hsb",
 			"levels/heroban/",
-			parseNYI,
+			convertMarques,
 		},
 		{
 			"Erim SEVER",
 			"www.erimsever.com/sokoban/Erim_Levels/E_Hexoban.zip",
 			"data/all_E_Hex.hsb",
 			"levels/ErimSEVER/",
-			parseNYI,
+			convertSEVER,
 		},
 		{
 			"Aymeric du Peloux",
 			"http://membres.lycos.fr/nabokos/",
 			"data/hexocet.hsb",
 			"levels/hexocet/",
-			parseNYI,
+			convertPeloux,
 		},
 		{
 			"LukaszM",
 			"https://play.fancade.com/5FA6BCFD16EB8B3B",
 			"data/lukaszm.hsb",
 			"levels/LukaszM/",
-			parseNYI,
+			convertLukaszM,
 		},
 		{
 			"", // Mixture of authors.
 			"http://users.bentonrea.com/~sasquatch/sokoban/morehex.hsb",
 			"data/morehex.hsb",
-			"levels/move/",
-			parseMore,
+			"levels/more/",
+			convertSingles,
 		},
 	}
 }
 
-func parseMore(text []byte, collection hexaban.Collection) ([]hexaban.Puzzle, error) {
+func convertSingles(text []byte, collection hexaban.Collection) ([]hexaban.Puzzle, error) {
 	puzzles := make([]hexaban.Puzzle, 0)
-	// TODO
-	return puzzles, nil
+	parser := NewParser(text)
+
+	errors := errorGroup{make([]string, 0)}
+	for !parser.EOF() {
+		puzzle := hexaban.Puzzle{}
+		puzzle.Source = collection.Source
+
+		if !parser.NextToken("; ") {
+			errors.AddError("expected comment for puzzle identifier")
+		}
+		puzzle.Identity = parser.NextQuotedString()
+		if puzzle.Identity == "" {
+			errors.AddError(
+				fmt.Sprintf("expected a quoted string for the name of level %d", len(puzzles)))
+		} else {
+			// strip quotes from Identity and also assign to Name
+			puzzle.Identity = withoutQuotes(puzzle.Identity)
+			puzzle.Name = puzzle.Identity
+		}
+		if !parser.NextLine() {
+			errors.AddError("expected newline after puzzle id")
+			parser.NextSection()
+			continue
+		}
+
+		grid_parser := NewParser(parser.NextSection())
+		if !grid_parser.BytesAvailable(2) {
+			errors.AddError("not enough data for a puzzle definition")
+			break
+		}
+		puzzle.Author = grid_parser.ParseProperty("Author")
+		tiles, err := grid_parser.ParseTextGrid()
+		if err != nil {
+			errors.AddError(
+				fmt.Sprintf("failed to parse puzzle initial conditions: %v", err))
+			break
+		}
+		puzzle.AddTiles(tiles)
+		puzzles = append(puzzles, puzzle)
+	}
+
+	if len(errors.errors) == 0 {
+		return puzzles, nil
+	}
+	return puzzles, errors
 }
 
-func parseNYI(text []byte, collection hexaban.Collection) ([]hexaban.Puzzle, error) {
-	fmt.Println(collection.Source)
-	fmt.Println("UM, we haven't implemented a reader for this collection yet.")
-
-	return nil, nil
+func withoutQuotes(quoted string) string {
+	return quoted[1 : len(quoted)-1]
 }
