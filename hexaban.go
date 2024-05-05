@@ -33,12 +33,13 @@ type Collection struct {
 }
 
 type Puzzle struct {
-	Identity string     `json:"id"`
-	Name     string     `json:"name"`
-	Author   string     `json:"author"`
-	Source   string     `json:"source"`
-	Terrain  []HexCoord `json:"terrain"`
-	Init     Init       `json:"init"`
+	Identity   string     `json:"id"`
+	Name       string     `json:"name"`
+	Author     string     `json:"author"`
+	Source     string     `json:"source"`
+	Terrain    []HexCoord `json:"terrain"`
+	Init       Init       `json:"init"`
+	Difficulty int        `json:"difficulty,omitempty"`
 }
 
 type Init struct {

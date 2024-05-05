@@ -1,0 +1,19 @@
+{
+  "id": "LukaszM/07",
+  "name": "Level 07",
+  "author": "LukaszM",
+  "source": "https://play.fancade.com/5FA6BCFD16EB8B3B",
+  "terrain": [
+    [3, -1], [4, -2], [3, 0], [5, -2], [4, 0], [5, -1], [6, -2], [5, 0], [6, -1], [5, 1], [5, 2], [6, 1], [5, 3], [6, 2]
+  ],
+  "init": {
+    "goals": [
+      [5, 0], [5, 1]
+    ],
+    "crates": [
+      [5, -1], [5, 2]
+    ],
+    "ichiban": [5, 3]
+  },
+  "difficulty": 4
+}

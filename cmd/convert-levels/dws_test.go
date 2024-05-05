@@ -77,7 +77,7 @@ func Test_convertDWS(t *testing.T) {
 
 	expected := []hexaban.Puzzle{
 		{
-			Identity: "dws001",
+			Identity: "DWS/001",
 			Name:     "001",
 			Author:   "David W. Skinner",
 			Source:   collection.Source,
@@ -103,7 +103,7 @@ func Test_convertDWS(t *testing.T) {
 			},
 		},
 		{
-			Identity: "dws002",
+			Identity: "DWS/002",
 			Name:     "002",
 			Author:   "David W. Skinner",
 			Source:   collection.Source,
@@ -135,7 +135,7 @@ func Test_convertDWS(t *testing.T) {
 			},
 		},
 		{
-			Identity: "dws005",
+			Identity: "DWS/005",
 			Name:     "005",
 			Author:   "David W. Skinner",
 			Source:   collection.Source,

@@ -14,7 +14,7 @@ Collection: Heroban
    # # # #
 Title: The snowflake
 Date: 2002/02/08
-Difficulty: 7.5
+Difficulty: 9
 
   # # #
  #     #
@@ -26,7 +26,7 @@ Difficulty: 7.5
    # #   # #
 Title: Heroban 1
 Date: 2002/02/12
-Difficulty: 7
+Difficulty: 8
 
    # # # #
   #   .   #
@@ -38,7 +38,7 @@ Difficulty: 7
       # #   # #
 Title: Equal
 Date: 2002/02/17
-Difficulty: 8
+Difficulty: 10
 
     # # #   # # #                          
    #     # #     #                         
@@ -53,7 +53,7 @@ Difficulty: 8
       # # # # #
 Title: The big trefle
 Date: 2002/02/19
-Difficulty: 9
+Difficulty: 12
 
        # # #
     # #     # #
@@ -65,7 +65,7 @@ Difficulty: 9
     # # # # # #
 Title: The boat
 Date: 2002/02/20
-Difficulty: 7.5
+Difficulty: 9
 
       # # # #
    # # @     #
@@ -79,7 +79,7 @@ Difficulty: 7.5
  # # # # # #
 Title: The strange bottle
 Date: 2002/02/21
-Difficulty: 8.75
+Difficulty: 11
 
   # # # # #
  #   $ +   #
@@ -92,7 +92,7 @@ Difficulty: 8.75
           # #
 Title: Two lines
 Date: 2002/02/21
-Difficulty: 9.25
+Difficulty: 14
 
      # #
   # #   # #
@@ -106,7 +106,7 @@ Difficulty: 9.25
       # # # #
 Title: The pack
 Date: 2002/02/25
-Difficulty: 9.75
+Difficulty: 16
 
      # #
   # #   # # #
@@ -119,7 +119,7 @@ Difficulty: 9.75
        # # #
 Title: Heroban 2
 Date: 2002/02/26
-Difficulty: 8.5
+Difficulty: 12
 
   # #                         
  #   #                       
@@ -133,4 +133,4 @@ Difficulty: 8.5
  # # #
 Title: The screw
 Date: 2002/03/02
-Difficulty : 7
+Difficulty : 9

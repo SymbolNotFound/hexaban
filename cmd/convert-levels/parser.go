@@ -172,12 +172,19 @@ func (parser *PuzzleParser) NextSection() []byte {
 // tile ::= glyph sep
 // glyph ::= '#' | ' ' | '.' | '$' | '*' | '@' | '+'
 // sep ::= ' ' | '\n' | '\r' '\n' | <EOF>
+//
+// (
+// this implies that any one-lined puzzles are even rows but the utility of a
+// hexaban puzzle consisting of one row is even more futile than a one-row
+// sokoban.  You cannot move directly between hexagons on the same row,
+// due to the way that they're pointed.
+// )
 func (parser *PuzzleParser) ParseTextGrid() ([]Tile, error) {
 	tiles := make([]Tile, 0)
 	row, column := 0, 0
 	tile_matcher := regexp.MustCompile(`^([# .$*@+])( |\r?\n)?`)
 
-	// Read until we reach end of file or until a double-newline
+	// Read until we reach the end of filedata.
 	for !parser.EOF() {
 		for parser.NextToken(" ") {
 			column += 1
@@ -193,11 +200,14 @@ func (parser *PuzzleParser) ParseTextGrid() ([]Tile, error) {
 		}
 
 		for {
+			// Match the next tile in the row.
 			match := tile_matcher.FindSubmatch(parser.filedata[parser.cursor:])
 			if match == nil {
+				// Sometimes the newline follows a glyph+sep pair.
 				if parser.EOF() || parser.EOL() {
 					break
 				}
+				// otherwise, it looks like a bad puzzle definition.
 				return tiles, fmt.Errorf("unrecognized puzzle tile %s",
 					parser.filedata[parser.cursor:parser.cursor+1])
 			}
@@ -211,8 +221,9 @@ func (parser *PuzzleParser) ParseTextGrid() ([]Tile, error) {
 			tiles = append(tiles, parseTile(glyph, coord)...)
 			parser.cursor += uint(len(match[0]))
 
-			// separator indicates whether line continues or not
 			if sep == " " {
+				// A space implies tiles continue for this row,
+				// even if the following character may start with a newline.
 				column += 2
 				continue
 			}

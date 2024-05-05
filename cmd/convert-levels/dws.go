@@ -48,6 +48,7 @@ func convertDWS(text []byte, collection hexaban.Collection) ([]hexaban.Puzzle, e
 			puzzle.Identity = puzzle.Identity[1 : len(puzzle.Identity)-1]
 			if puzzle.Identity[:3] == "dws" {
 				puzzle.Name = puzzle.Identity[3:]
+				puzzle.Identity = fmt.Sprintf("DWS/%s", puzzle.Name)
 			} else {
 				errors.AddError(
 					fmt.Sprintf("unexpected identity %s", puzzle.Identity))
