@@ -1,0 +1,19 @@
+{
+  "id": "Heloban/Heloban 6",
+  "name": "Heloban 6",
+  "author": "François Marques",
+  "source": "http://hexoban.online.fr/",
+  "terrain": [
+    [3, -1], [4, -2], [3, 0], [5, -2], [6, -3], [3, 1], [4, 0], [5, -1], [6, -2], [7, -3], [5, 0], [6, -1], [6, 0]
+  ],
+  "init": {
+    "goals": [
+      [4, -2], [5, -1]
+    ],
+    "crates": [
+      [4, 0], [5, -1]
+    ],
+    "ichiban": [3, -1]
+  },
+  "difficulty": 3
+}

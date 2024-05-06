@@ -102,7 +102,7 @@ func (parser *PuzzleParser) ParseProperty(propName string) string {
 	if !parser.BytesAvailable(len(propName) + 3) {
 		return ""
 	}
-	pattern := fmt.Sprintf("\\n%s: %s", propName, `[^\n]*\n?`)
+	pattern := fmt.Sprintf("\\n?%s: %s", propName, `[^\n]*\n?`)
 	matcher := regexp.MustCompile(pattern)
 	location := matcher.FindIndex(parser.filedata[parser.cursor:])
 	if location == nil {
@@ -110,7 +110,10 @@ func (parser *PuzzleParser) ParseProperty(propName string) string {
 	}
 
 	// extract value from filedata
-	begin := parser.cursor + uint(location[0]) + uint(len(propName)) + 3
+	begin := parser.cursor + uint(location[0]) + uint(len(propName)) + 2
+	if parser.filedata[parser.cursor+uint(location[0])] == '\n' {
+		begin += 1
+	}
 	end := parser.cursor + uint(location[1])
 	value := string(parser.filedata[begin:end])
 	// Trim trailing newline if it exists.
@@ -119,7 +122,7 @@ func (parser *PuzzleParser) ParseProperty(propName string) string {
 	}
 
 	// remove the match location from filedata
-	begin = parser.cursor + uint(location[0]) + 1
+	begin -= uint(len(propName)) + 2
 	parser.filedata = append(parser.filedata[parser.cursor:begin], parser.filedata[end:]...)
 
 	return value

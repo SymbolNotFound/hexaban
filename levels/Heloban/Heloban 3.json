@@ -1,0 +1,19 @@
+{
+  "id": "Heloban/Heloban 3",
+  "name": "Heloban 3",
+  "author": "François Marques",
+  "source": "http://hexoban.online.fr/",
+  "terrain": [
+    [4, -2], [5, -3], [3, 0], [4, -1], [5, -2], [4, 0], [5, -1], [4, 1], [5, 0], [4, 2], [5, 1], [6, 0], [5, 2], [6, 1]
+  ],
+  "init": {
+    "goals": [
+      [4, -2], [4, 0], [4, 1]
+    ],
+    "crates": [
+      [4, 0], [4, 1], [5, 0]
+    ],
+    "ichiban": [4, -2]
+  },
+  "difficulty": 5
+}

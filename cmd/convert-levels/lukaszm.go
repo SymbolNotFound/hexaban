@@ -42,11 +42,13 @@ func convertLukaszM(text []byte, collection hexaban.Collection) ([]hexaban.Puzzl
 			break
 		}
 		// Difficulty property appears with puzzle grid definition
-		difficulty, err := strconv.Atoi(grid_parser.ParseProperty("Difficulty"))
+		difficultyValue := grid_parser.ParseProperty("Difficulty")
+		difficulty, err := strconv.Atoi(difficultyValue)
 		if err != nil {
-			errors.AddError("expected ")
+			errors.AddError("failed to parse difficulty " + difficultyValue)
+		} else {
+			puzzle.Difficulty = difficulty
 		}
-		puzzle.Difficulty = difficulty
 
 		tiles, err := grid_parser.ParseTextGrid()
 		if err != nil {
