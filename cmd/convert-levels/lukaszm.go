@@ -34,7 +34,7 @@ func convertLukaszM(text []byte, collection hexaban.Collection) ([]hexaban.Puzzl
 		puzzle.Identity = fmt.Sprintf("LukaszM/%s", string(puzid[1]))
 		puzzle.Name = string(puzid[0][2:])
 		parser.cursor += uint(len(puzid[0]))
-		parser.NextToken("\n")
+		parser.NextLine()
 
 		grid_parser := NewParser(parser.NextSection())
 		if !grid_parser.BytesAvailable(2) {

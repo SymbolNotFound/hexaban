@@ -111,6 +111,7 @@ Difficulty: 5
 				},
 				Player: at(6, -1),
 			},
+			// Testing the absence of a Difficulty property for this puzzle.
 		},
 		{
 			Identity: "heloban/Heloban 3",
