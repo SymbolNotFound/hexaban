@@ -66,6 +66,7 @@ func main() {
 		}
 
 		for _, hex_puzzle := range collection.Puzzles {
+			hex_puzzle = translateCoordinates(hex_puzzle)
 			json, err := prettyPrint(hex_puzzle)
 			if err != nil {
 				fmt.Println(err)
@@ -127,6 +128,35 @@ func FileMetadata() []CollectionFactory {
 			convertSingles,
 		},
 	}
+}
+
+func translateCoordinates(topleft hexaban.Puzzle) hexaban.Puzzle {
+	centered := hexaban.Puzzle{
+		Identity:   topleft.Identity,
+		Name:       topleft.Name,
+		Author:     topleft.Author,
+		Source:     topleft.Source,
+		Difficulty: topleft.Difficulty,
+		Init:       hexaban.Init{},
+	}
+	player := topleft.Init.Player
+
+	centered.Terrain = make([]hexaban.HexCoord, len(topleft.Terrain))
+	for index, terrain := range topleft.Terrain {
+		centered.Terrain[index] = hexaban.NewHexCoord(terrain.I()-player.I(), terrain.J()-player.J())
+	}
+
+	centered.Init.Goals = make([]hexaban.HexCoord, len(topleft.Init.Goals))
+	for index, goal := range topleft.Init.Goals {
+		centered.Init.Goals[index] = hexaban.NewHexCoord(goal.I()-player.I(), goal.J()-player.J())
+	}
+
+	centered.Init.Crates = make([]hexaban.HexCoord, len(topleft.Init.Crates))
+	for index, crate := range topleft.Init.Crates {
+		centered.Init.Crates[index] = hexaban.NewHexCoord(crate.I()-player.I(), crate.J()-player.J())
+	}
+
+	return centered
 }
 
 // Special converter function for the `morehex.hsb` file.  Could be used for other
@@ -210,8 +240,8 @@ func prettyPrint(puzzle hexaban.Puzzle) ([]byte, error) {
 	json = regexp.MustCompile(`\[(-?\d+),\n\s+`).ReplaceAll(json, []byte("[$1, "))
 	json = regexp.MustCompile(`(-?\d+)\n\s+\]`).ReplaceAll(json, []byte("$1]"))
 	json = regexp.MustCompile(`(-?\d+\],?)\n\s+`).ReplaceAll(json, []byte("$1 "))
-	json = regexp.MustCompile(`\] (\],)\n    `).ReplaceAll(json, []byte("]\n    $1\n    "))
-	json = regexp.MustCompile(`\] ([\]}],?)`).ReplaceAll(json, []byte("]\n  $1"))
+	json = regexp.MustCompile(`\] (\],?)\n(\s+)"`).ReplaceAll(json, []byte("]\n$2$1\n$2\""))
+	json = regexp.MustCompile(`\] (\],?)\n(\s+)}`).ReplaceAll(json, []byte("]\n$2  $1\n$2}"))
 
 	return json, nil
 }

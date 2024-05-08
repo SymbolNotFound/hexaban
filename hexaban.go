@@ -46,7 +46,7 @@ type Init struct {
 	// All goals and crates need to be on coordinates where terrain exists.
 	Goals  []HexCoord `json:"goals"`
 	Crates []HexCoord `json:"crates"`
-	Player HexCoord   `json:"ichiban,omitempty"` // Default is (0, 0)
+	Player Tile       `json:"ichiban,omitempty"` // Default is (0, 0)
 }
 
 type Tile interface {
@@ -129,6 +129,7 @@ type HexCoord struct {
 func (coord HexCoord) I() int          { return coord.i }
 func (coord HexCoord) J() int          { return coord.j }
 func (coord HexCoord) Coord() HexCoord { return coord }
+func (coord HexCoord) Type() TileType  { return TILE_UNKNOWN }
 
 func NewHexCoord(i, j int) HexCoord {
 	return HexCoord{i, j}
@@ -165,11 +166,12 @@ func (coord *HexCoord) UnmarshalJSON(encoded []byte) error {
 type TileType string
 
 const (
-	TILE_FLOOR  TileType = "FLOOR"
-	TILE_WALL   TileType = "WALL"
-	TILE_GOAL   TileType = "GOAL"
-	TILE_CRATE  TileType = "CRATE"
-	TILE_PLAYER TileType = "PLAYER"
+	TILE_UNKNOWN TileType = ""
+	TILE_FLOOR   TileType = "FLOOR"
+	TILE_WALL    TileType = "WALL"
+	TILE_GOAL    TileType = "GOAL"
+	TILE_CRATE   TileType = "CRATE"
+	TILE_PLAYER  TileType = "PLAYER"
 )
 
 type Floor struct{ HexCoord }
@@ -200,7 +202,7 @@ func (puzzle *Puzzle) AddTiles(tiles []Tile) error {
 		case TILE_CRATE:
 			puzzle.Init.Crates = append(puzzle.Init.Crates, tile.Coord())
 		case TILE_PLAYER:
-			puzzle.Init.Player = tile.Coord()
+			puzzle.Init.Player = tile
 		}
 	}
 	return nil
