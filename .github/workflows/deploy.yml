@@ -1,0 +1,28 @@
+name: Deploy to GitHub Pages
+on: push
+jobs:
+  deploy:
+    # needs: test #, test: needs: build
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: production
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+     - name: checkout
+       uses: actions/checkout@v3
+       with:
+         token: ${{ secrets.GITHUB_TOKEN }}
+     
+     - name: upload
+       uses: actions/upload-pages-artifact@v1
+       with:
+         path: "./levels"
+
+     - name: deploy
+       id: deployment
+       uses: actions/deploy-pages@v1
