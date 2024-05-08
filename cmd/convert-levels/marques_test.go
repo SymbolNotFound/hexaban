@@ -82,7 +82,7 @@ Difficulty: 5
 				Crates: []hexaban.HexCoord{
 					at(5, -2), at(6, -3), at(4, 1), at(5, 1), at(8, -2), at(8, -1),
 				},
-				Player: at(6, -1),
+				Ichiban: at(6, -1),
 			},
 			Difficulty: 3,
 		},
@@ -109,7 +109,7 @@ Difficulty: 5
 				Crates: []hexaban.HexCoord{
 					at(5, -2), at(6, -3), at(4, 1), at(5, 1), at(8, -2), at(8, -1),
 				},
-				Player: at(6, -1),
+				Ichiban: at(6, -1),
 			},
 			// Testing the absence of a Difficulty property for this puzzle.
 		},
@@ -135,7 +135,7 @@ Difficulty: 5
 				Crates: []hexaban.HexCoord{
 					at(4, 0), at(4, 1), at(5, 0),
 				},
-				Player: at(4, -2),
+				Ichiban: at(4, -2),
 			},
 			Difficulty: 5,
 		},

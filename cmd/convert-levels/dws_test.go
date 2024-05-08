@@ -99,7 +99,7 @@ func Test_convertDWS(t *testing.T) {
 				Crates: []hexaban.HexCoord{
 					at(5, 0), at(6, -1), at(7, -1),
 				},
-				Player: at(7, 0),
+				Ichiban: at(7, 0),
 			},
 		},
 		{
@@ -131,7 +131,7 @@ func Test_convertDWS(t *testing.T) {
 				Crates: []hexaban.HexCoord{
 					at(7, -5), at(6, -3), at(7, -4), at(9, -6), at(9, -5), at(6, 1), at(7, 1),
 				},
-				Player: at(13, -6),
+				Ichiban: at(13, -6),
 			},
 		},
 		{
@@ -164,7 +164,7 @@ func Test_convertDWS(t *testing.T) {
 					at(6, 1), at(7, 0), at(10, -3), at(6, 2), at(7, 1), at(9, -1),
 					at(10, -2), at(11, -3), at(7, 2), at(8, 1), at(10, -1), at(11, -2),
 				},
-				Player: at(5, -3),
+				Ichiban: at(5, -3),
 			},
 		},
 	}

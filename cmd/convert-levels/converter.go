@@ -139,7 +139,7 @@ func translateCoordinates(topleft hexaban.Puzzle) hexaban.Puzzle {
 		Difficulty: topleft.Difficulty,
 		Init:       hexaban.Init{},
 	}
-	player := topleft.Init.Player
+	player := topleft.Init.Ichiban
 
 	centered.Terrain = make([]hexaban.HexCoord, len(topleft.Terrain))
 	for index, terrain := range topleft.Terrain {

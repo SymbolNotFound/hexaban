@@ -83,7 +83,7 @@ Difficulty: 8`
 				Crates: []hexaban.HexCoord{
 					at(4, -1),
 				},
-				Player: at(4, -2),
+				Ichiban: at(4, -2),
 			},
 			Difficulty: 1,
 		},
@@ -105,7 +105,7 @@ Difficulty: 8`
 				Crates: []hexaban.HexCoord{
 					at(4, -2), at(4, -1),
 				},
-				Player: at(3, 0),
+				Ichiban: at(3, 0),
 			},
 			Difficulty: 1,
 		},
@@ -131,7 +131,7 @@ Difficulty: 8`
 				Crates: []hexaban.HexCoord{
 					at(6, -4), at(5, -1), at(7, -3), at(7, -2),
 				},
-				Player: at(8, -3),
+				Ichiban: at(8, -3),
 			},
 			Difficulty: 8,
 		},

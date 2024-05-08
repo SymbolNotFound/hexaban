@@ -90,7 +90,7 @@ Author: Erim SEVER`
 				Crates: []hexaban.HexCoord{
 					at(4, -1), at(4, 0), at(4, 1), at(6, 0), at(5, 2),
 				},
-				Player: at(7, -1),
+				Ichiban: at(7, -1),
 			},
 		},
 		{
@@ -118,7 +118,7 @@ Author: Erim SEVER`
 				Crates: []hexaban.HexCoord{
 					at(4, -2), at(5, -3), at(7, -5), at(5, -2), at(7, -4), at(5, -1), at(6, -2), at(7, -3), at(8, -4), at(5, 0), at(9, -4), at(6, 0), at(7, -1), at(8, -2), at(9, -3), at(7, 0), at(9, -2), at(7, 1), at(9, -1), at(10, -2),
 				},
-				Player: at(7, -2),
+				Ichiban: at(7, -2),
 			},
 		},
 		{
@@ -147,7 +147,7 @@ Author: Erim SEVER`
 				Crates: []hexaban.HexCoord{
 					at(5, -3), at(5, -2), at(6, -3), at(7, -4), at(8, -5), at(5, -1), at(9, -5), at(5, 0), at(7, -2), at(8, -3), at(10, -5), at(5, 1), at(7, -1), at(9, -3), at(11, -5), at(6, 1), at(8, -1), at(9, -2), at(11, -4), at(12, -5), at(7, 1), at(11, -3), at(7, 2), at(8, 1), at(9, 0), at(10, -1), at(11, -2),
 				},
-				Player: at(8, -2),
+				Ichiban: at(8, -2),
 			},
 		},
 	}
