@@ -199,6 +199,7 @@ func convertSingles(text []byte, collection hexaban.Collection) ([]hexaban.Puzzl
 		}
 		// Author credit appears after grid section, pull it before parsing the grid
 		puzzle.Author = grid_parser.ParseProperty("Author")
+		puzzle.Name = grid_parser.ParseProperty("Title")
 		tiles, err := grid_parser.ParseTextGrid()
 		if err != nil {
 			errors.AddError(
