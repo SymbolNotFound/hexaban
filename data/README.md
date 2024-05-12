@@ -201,13 +201,14 @@ you can see how easy it is to read the same definition out of its JSON represent
 This has enough structural complexity to justify an automated approach and at a scale
 that is a little too onerous for humans, but a tiny amount for computation (~150 puzzles
 would take weeks to months to convert coordinates by hand, and would likely include several 
-errors).
+errors).  It would take less time to write the automation and run it than it would to do the
+entire task by hand.
 
 Parsing a data format is something that is common enough to be practical, tricky enough to
 provide a challenge, and yet (in this case) demands no exotic data structures or complicated
 math.  It can be solved without relying on another library to do the work (and in this case,
-defining a formal grammar and interpreting that would be more work than writing a hand-rolled
-parser such as I did, so I can encourage directly writing a parser for it).  I did dig up one
+defining a formal grammar and interpreting these puzzles would be more work than hand-rolling
+a parser such as I did, so I can encourage directly writing a parser for it).  I did dig up one
 example of a Python library for parsing hexobans (along with soko- and tri-) [sokoenginepy],
 you could use it as a second reference implementation, but it is scarce on comments.
 
@@ -217,12 +218,12 @@ underspecification.
 
 ## Lesson 1: Programming is Composition
 
-Bonus points if you thought this was a musical reference, I have made that metaphor before.
+Bonus points if you thought this was a musical reference, I have used that metaphor before.
 
 What I mean, though, is the nesting-boxes kind of composition, and programming is a lot of that.
 There are other forms of abstraction, like functional abstraction or file organization, naming
 conventions, etc.  The abstraction that involves choosing the properties of an object and the
-allocation of resources within an overall structure, that is at the core of programming design.
+allocation of resources within an overall structure, that is at the core of program design.
 
 Choose your composition/structure well and it will aid you and others as well.
 
