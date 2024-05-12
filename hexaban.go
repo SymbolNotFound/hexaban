@@ -60,16 +60,17 @@ type Tile interface {
 
 // This assumes that the rectangular coordinates collapse each pair of rows
 // into a common row coordinate, aligning the columns, and that hexes have
-// their orientation such that up/down movement is possible (the other four
-// directions are left/right and north/south).
+// their orientation such that left/right movement is possible (the other four
+// directions are up/down and back/forward).
 //
-// .           up           /===================== rect{col, row}
-// .    left _---_ north    | 0,0     2,0     4,0
-// .        <_   _>         |     1,0     3,0
-// .   south  ```  right    | 0,1     2,1     4,1
-// .          down          |     1,1     3,1
-// .                        | 0,2     2,2     4,2
-// rect{6,1} = hex{4,2}     \     ...     ...
+// .                       /===================== rect{col, row}
+// .     back /^\  up      | 0,0     2,0     4,0
+// .         |   |         |     1,0     3,0
+// .    left |   | right   | 0,1     2,1     4,1
+// .          \v/          |     1,1     3,1
+// .     down     forward  | 0,2     2,2     4,2
+// .                       |     ...     ...
+// rect{6,1} = hex{4,2}    \
 //
 // The selection of cardinal directions is arbitrary, this is good as any.  But
 // notice that sometimes a column difference of |1| is a movement `right`, and
@@ -116,7 +117,7 @@ func (coord RectCoord) ToHexCenteredAt(center HexCoord) HexCoord {
 }
 
 // The HexCoord has a basis of two unit vectors (i, j) corresponding to
-// right (downward-right in pixel coordinates) and south (or downward-left
+// forward (downward-right in pixel coordinates) and down (or downward-left
 // in pixel coords).  This results in a back-to-front ordering if sorted by
 // (i + j), with ties broken by ascending `i`.  It is also a more suitable
 // representation for translations, rotations and other affine transformations.

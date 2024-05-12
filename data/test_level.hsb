@@ -1,5 +1,6 @@
 Author: David W. Skinner
 Source: http://users.bentonrea.com/~sasquatch/sokoban/hex.html
+TranscribedBy: Erim SEVER
 
 	            # # # 	
 	     # # # #     # 	
@@ -12,17 +13,19 @@ Source: http://users.bentonrea.com/~sasquatch/sokoban/hex.html
    # # $ #   # @ #   . . # 	
     # #     # # # # # # # 	
        # # # 	
-
-Title: Original level by David W. Skinner
+Damm: watch out for the spaces following the right-most wall on some lines
+Title: dws002
 
 
 
 Comment: -
-Here are modification of his level; just roated and/or flipped,
-and man is move to a different location.
-All this level YHexoban considers as equal. 
-Last level is different, despite having the same shape.
-     
+Here are modifications of this level:
+ * rotations
+ * reflections
+ * 'ban moved to a different location within reachable tiles
+YHexoban considers all of these levels as equal,
+except the last level (despite having the same shape).
+
                 # # # # #
          # # # #         #
         #         # # #   #    	
@@ -192,9 +195,6 @@ Last level is different, despite having the same shape.
    # # #               	
 
 
-This level however is not considered equal
-because man is moved to unreachable (from original level) location.
-
                 # # # # #
          # # # #         #
         #         # # #   #    	
@@ -210,3 +210,6 @@ because man is moved to unreachable (from original level) location.
     # #   # # #               #
        #         # # # # # # #
         # # # # #                  
+Comment: -
+This level, however, is not considered a duplicate because
+'ban is moved to an unreachable (from original) coordinate.
