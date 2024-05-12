@@ -122,6 +122,12 @@ func FileMetadata() []CollectionFactory {
 			convertLukaszM,
 		},
 		{
+			"Sven Egevad",
+			"http://web.telia.com/~u40915103/welcome.htm",
+			"data/svenhex.hsb",
+			convertEgevad,
+		},
+		{
 			"", // Mixture of authors.
 			"http://users.bentonrea.com/~sasquatch/sokoban/morehex.hsb",
 			"data/morehex.hsb",
