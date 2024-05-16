@@ -181,14 +181,18 @@ the terminal condition (all goals are occupied by a crate).  Note: as in the ori
 puzzle doesn't inform you that a crate is deadlocked, so without an undo some pushes are truly game over
 but an agent may continue pushing the other blocks around -- deadlock is not a terminal condition.
 
-6. \[***\] **Assignment Problem** \
+6. \[* *\] **Valid Sequence** \
+  Given a puzzle (terrain and initial conditions) and a sequence of moves, indicate (true/false) whether
+the sequence of moves is valid for the provided puzzle.
+
+7. \[***\] **Assignment Problem** \
   Consider each crate in isolation, and whether it can be pushed to each of the goals.  Is there an assignment
 of crates to goals such that each goal is covered by a different crate?  You do not have to provide the optimal
 solution, but cf. the Hungarian Algorithm for an approachable polynomial-time algorithm for finding an optimal
 solution.  As a validity check it is still good to confirm that walls/hallways don't prohibit at least *some*
 way of getting each crate to its own goal, ignoring the shuffling of other crates.
 
-7. \[* *\] **JSON Encoding** \
+8. \[* *\] **JSON Encoding** \
   Using any structure coordinate system of your choice (it doesn't have to match the one here,
 and it can be all one file, or file-per-collection), produce a JSON representation of each
 puzzle and its metadata.  Python has a json package in its standard library that will help a
