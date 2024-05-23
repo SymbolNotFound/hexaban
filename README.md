@@ -1,2 +1,5 @@
-# hexaban
-web-based game for playing hexagonal Sokoban
+# Hexaban a.k.a. Hexoban
+
+> A variant of Sokoban, the crate-moving puzzle game, on a hexagonal grid.
+
+
