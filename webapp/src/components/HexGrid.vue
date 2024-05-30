@@ -71,10 +71,10 @@ const width = computed(() => window.innerWidth)
 const height = computed(() => window.innerHeight)
 
 const griddata : PuzzleJSON = {
-  id: 'more/damm011',
+  id: 'damm/011',
   name: 'One Way Mirror',
   author: 'Kevin Damm',
-  source: 'https://hexaban.com/puzzles/damm/011.json',
+  source: 'https://hexoban.com/puzzles/damm/011.json',
   terrain: [
     [-2, -3], [-1, -4], [-1, -3], [-1, -2], [-1, -1],
     [0, -5], [0, -4], [0, -3], [0, -1], [0, 0],

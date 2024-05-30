@@ -14,7 +14,7 @@
 //
 // github:SymbolNotFound/hexaban/webapp/src/hexgrid/layout.ts
 
-import { HexGrid } from './topology'
+import { HexGrid, HexCoordIndex } from './topology'
 
 // Odd values are pointy-topped, even values are flat-topped.
 // Rotations follow clockwise in 30-degree increments for twelve iid rotations.
@@ -32,9 +32,14 @@ export class GridLayout {
   }
 }
 
-// Indexes the valid hexagonal grid coordinates into a dense ordering.
-export type HexIndex = number // integer
-
 // Valid directions are only one of these six strings,
 // corresponding to up | backward | left | down | forward | right.
 export type Direction = 'U'|'B'|'L'|'D'|'F'|'R'
+
+export class HexMap<V> {
+  map: Map<HexCoordIndex, V>
+
+  constructor () {
+    this.map = new Map()
+  }
+}

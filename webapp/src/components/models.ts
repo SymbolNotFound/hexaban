@@ -14,8 +14,7 @@
 //
 // github:SymbolNotFound/hexaban/webapp/src/components/models.ts
 
-import { HexCoord, HexGrid } from '../hexgrid/topology'
-import { CratePush } from '../puzzle/state'
+import { HexCoord } from '../hexgrid/topology'
 
 // This file contains shared model types for serialization, model representation
 // and user interface coordination.  Common hexgrid and puzzle logic are in the
@@ -52,12 +51,23 @@ export interface PuzzleJSON {
   init: PuzzleInitJSON
 }
 
-// Represents the state of a puzzle after a sequence of moves have been made.
-// HexGrid and status components make use of this as a data source.
-export interface PuzzleState {
-  readonly grid: HexGrid
-  goals: number[]
-  crates: number[]
-  pushes: CratePush[]
-  // do we care about counting the distance traveled, too?
+type HexNeighbors = [number, number, number, number, number, number]
+
+// Represents a collection of hex coordinates and valid traversals through them.
+export interface HexGrid {
+
+  // Returns an unsigned integer representing the HexCoord index.
+  // If the coordinate does not exist in the HexGrid, zero (0) is returned.
+  index: (coord: HexCoord) => number
+
+  // Adds the hex coordinate, if it doesn't already exist, and return its index.
+  // If it already existed, its index is returned and no new index is created.
+  add: (coord: HexCoord) => number
+
+  // Removes the coordinate if it existed in this collection.
+  remove: (coord: HexCoord) => void
+
+  // Returns the indices for all six neighbors.
+  // Zero values take the place of any neighbors that are not in the HexGrid.
+  neighbors: (coord: HexCoord) => HexNeighbors
 }

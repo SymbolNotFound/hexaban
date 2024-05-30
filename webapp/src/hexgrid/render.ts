@@ -19,9 +19,21 @@
 // panning and zooming done by the client to accommodate viewing a subset
 // of the grid as represented by GridLayout.
 export class GridView {
+  // Homogeneous coordinates for applying translation (right column) along
+  // with scale, rotation and shear transforms (top-left 2x2 submatrix).  The
+  // bottom-right corner element is a normalization factor, rescale it to 1.0.
+  transform: [[number, number, number],
+              [number, number, number],
+              [number, number, number]]
 
+  svg: SVGSVGElement
 
-  constructor(el: SVGElement) {
-
+  constructor (el: SVGSVGElement) {
+    // Identity transform (zero translation, uniform projection).
+    this.transform = [
+      [1, 0, 0],
+      [0, 1, 0],
+      [0, 0, 1]]
+    this.svg = el
   }
 }

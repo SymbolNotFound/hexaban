@@ -14,12 +14,12 @@
 //
 // github:SymbolNotFound/hexaban/webapp/src/puzzle/state.ts
 
-import { HexGrid } from '../hexgrid/topology'
-import { HexIndex, Direction } from '../hexgrid/layout'
+import { HexGrid, HexCoord, HexCoordIndex } from '../hexgrid/topology'
+import { HexMap, Direction } from '../hexgrid/map'
 
 // Represents the only effectful player move, pushing a crate in a direction.
 export interface CratePush {
-  crateCoord: HexIndex
+  crateCoord: HexCoordIndex
   direction: Direction
 }
 
@@ -28,12 +28,29 @@ export interface CratePush {
 // (worker's position and the distribution of crates) is derivedd from these
 // and represented here for convenience, but when serialized it only needs to
 // persist the sequence of pushes, even the routing of moves is optional.
-export class PuzzleState {
-  readonly initial: HexGrid
-  readonly pushes: Array<CratePush>
 
-  constructor (base: HexGrid) {
-    this.initial = base
+export class PuzzleState {
+  readonly terrain: HexGrid
+  readonly goals: HexMap<boolean>
+
+  position: HexCoordIndex
+  readonly crates: HexCoordIndex[]
+  readonly pushes: CratePush[]
+
+  constructor (grid: HexGrid, start: HexCoordIndex = 0) {
+    this.terrain = grid
+    this.goals = new HexMap()
+
+    this.position = start || grid.index(new HexCoord(0, 0))
+    this.crates = []
     this.pushes = []
+  }
+
+  addGoal (index: HexCoordIndex) {
+    this.goals.map.set(index, true)
+  }
+
+  addCrate (index: HexCoordIndex) {
+    this.crates.push(index)
   }
 }

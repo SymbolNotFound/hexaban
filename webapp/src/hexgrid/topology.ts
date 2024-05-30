@@ -46,24 +46,74 @@ export class HexCoord {
   backward (): HexCoord { return new HexCoord(this.i - 1, this.j - 1) }
 }
 
-// Neighbors' relative directions are (up, back, left, down, forward, right).
+// Neighbors' relative directions by (right, forward, down, left, backward, up).
 type HexNeighbors = [number, number, number, number, number, number]
 
-// Represents a collection of hex coordinates.
-export interface HexGrid {
+// A type alias for the densely-packed index of hex coordinates.
+export type HexCoordIndex = number
+
+// Represents a collection of hex coordinates and valid traversals through them.
+export class HexGrid {
+  constructor () {
+    this.map = new Map()
+    this.revmap = new Map()
+    this.currentIndex = 1
+  }
 
   // Returns an unsigned integer representing the HexCoord index.
   // If the coordinate does not exist in the HexGrid, zero (0) is returned.
-  index: (coord: HexCoord) => number
+  index (coord: HexCoord): HexCoordIndex {
+    return this.map.get(this._hash(coord)) || 0
+  }
+
+  coord (index: HexCoordIndex): HexCoord | undefined {
+    return this.revmap.get(index)
+  }
 
   // Adds the hex coordinate, if it doesn't already exist, and return its index.
   // If it already existed, its index is returned and no new index is created.
-  add: (coord: HexCoord) => number
+  add (coord: HexCoord): HexCoordIndex {
+    let index = this.index(coord)
+    if (index === 0) {
+      index = this.currentIndex++
+      this.map.set(this._hash(coord), index)
+    }
+    return index
+  }
 
   // Removes the coordinate if it existed in this collection.
-  remove: (coord: HexCoord) => void
+  remove (coord: HexCoord): HexCoordIndex {
+    const index = this.index(coord)
+    if (index === 0) {
+      return 0
+    }
+    this.revmap.delete(index)
+    this.map.delete(this._hash(coord))
+    return index
+  }
 
   // Returns the indices for all six neighbors.
   // Zero values take the place of any neighbors that are not in the HexGrid.
-  neighbors: (coord: HexCoord) => HexNeighbors
+  neighbors (coord: HexCoord): HexNeighbors {
+    const neighbors: HexNeighbors = [
+      this.index(coord.right()),
+      this.index(coord.forward()),
+      this.index(coord.down()),
+      this.index(coord.left()),
+      this.index(coord.backward()),
+      this.index(coord.up())
+    ]
+    return neighbors
+  }
+
+  // Forward- and reverse-index for coordinates to id.
+  map: Map<string, HexCoordIndex>
+  revmap: Map<HexCoordIndex, HexCoord>
+
+  // Tracks the value to next use as an index.
+  currentIndex: number
+
+  _hash (coord: HexCoord): string {
+    return coord.i + ',' + coord.j
+  }
 }
