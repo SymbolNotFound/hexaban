@@ -12,8 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// github:SymbolNotFound/hexoban/cmd/editor/fmt.go
+// github:SymbolNotFound/hexoban/hexoban.go
 
-package main
+package hexoban
 
-// Pretty-print the puzzle as a text string (suitable for display in a terminal).
+// Hexaban (some know it as Hexoban to match the 'o' in Sokoban).
+//
+// Structures for representing the initial state and sequence of moves
+// for the solitaire game that is a hexagonal variant of the classic
+// puzzle known as Sokoban ("warehouse worker," the crate pusher).
+
+import "github.com/SymbolNotFound/hexoban/puzzle"
+
+type Puzzle = puzzle.Puzzle
+type Init = puzzle.Init
+type HexCoord = puzzle.HexCoord
+type Tile = puzzle.Tile
+
+var NewHexCoord = puzzle.NewHexCoord

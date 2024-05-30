@@ -7,7 +7,7 @@
           <q-avatar>
             <img src="/icons/push.svg">
           </q-avatar>
-          Hexaban Puzzle Title
+          {{ title }}
         </q-toolbar-title>
       </q-toolbar>
 
@@ -40,6 +40,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+
+const title = '[Hexaban Puzzle Title]'
 
 const breadcrumbs = ref([{
   key: 0,

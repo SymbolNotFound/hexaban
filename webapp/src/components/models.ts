@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// github:SymbolNotFound/hexaban/webapp/src/components/models.ts
+// github:SymbolNotFound/hexoban/webapp/src/components/models.ts
 
 import { HexCoord } from '../hexgrid/topology'
 

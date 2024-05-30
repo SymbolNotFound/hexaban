@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// github:SymbolNotFound/hexaban/cmd/editor/main.go
+// github:SymbolNotFound/hexoban/cmd/editor/main.go
 
 package main
 
@@ -27,8 +27,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/SymbolNotFound/hexaban"
-	"github.com/SymbolNotFound/hexaban/cmd/editor/parser"
+	"github.com/SymbolNotFound/hexoban"
+	"github.com/SymbolNotFound/hexoban/cmd/editor/parser"
 )
 
 func main() {
@@ -51,7 +51,7 @@ func main() {
 	flag.Parse()
 
 	// Populate puzzle metadata
-	puzzle := hexaban.Puzzle{
+	puzzle := hexoban.Puzzle{
 		Author:     *authorFlag,
 		Name:       *titleFlag,
 		Difficulty: *difficFlag,
@@ -100,7 +100,7 @@ getout:
 	}
 }
 
-func app(reader *bufio.Reader, puzzle *hexaban.Puzzle) {
+func app(reader *bufio.Reader, puzzle *hexoban.Puzzle) {
 	promptForMissingValues(puzzle, reader)
 
 	// Prompt for puzzle in text format, then convert and validate the puzzle.
@@ -116,7 +116,7 @@ func app(reader *bufio.Reader, puzzle *hexaban.Puzzle) {
 	}
 }
 
-func promptForMissingValues(puzzle *hexaban.Puzzle, reader *bufio.Reader) {
+func promptForMissingValues(puzzle *hexoban.Puzzle, reader *bufio.Reader) {
 	puzzle.Author = readNonemptyLine(reader, "The puzzle's author? ")
 	puzzle.Name = readNonemptyLine(reader, "The puzzle's name (or unique number)? ")
 

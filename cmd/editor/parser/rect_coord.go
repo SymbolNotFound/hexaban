@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// github:SymbolNotFound/hexaban/cmd/editor/rect_coord.go
+// github:SymbolNotFound/hexoban/cmd/editor/rect_coord.go
 
 package parser
 
-import "github.com/SymbolNotFound/hexaban/puzzle"
+import "github.com/SymbolNotFound/hexoban/puzzle"
 
 // This RectCoord is only provided within the main package of a CLI tool because
-// it should not be used in common with any other clients of the hexaban library.
+// it should not be used in common with any other clients of the hexoban library.
 //
 // If using it, convert it into an axial hex coordinate using RectCoord.ToHex().
 type RectCoord struct {

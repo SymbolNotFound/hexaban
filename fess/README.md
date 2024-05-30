@@ -1,10 +1,10 @@
-# FESS in golang for hexaban
+# FESS in golang for hexoban
 
 Clean-room implementation of FESS to attempt reproducing results of Festival 
 based on presentation of [FESS at CoG 2020] given by
 [Yaron Shoham](https://festival-solver.site), and related details in the paper.
 
-The work in progress is a solver applied to Hexaban, a hexagonal version of
+The work in progress is a solver applied to Hexoban, a hexagonal version of
 Sokoban, though it should be possible to apply it to classical Sokoban by
 changing the rules for legal inputs (traversable and input-move, pushable and
 input-push).  I am designing it with eventual GDL or GGDL compatibility in mind
@@ -42,7 +42,7 @@ continue dominating the search time, but no matter how low the score even the
 rare long unrewarding side path will eventually be visited.
 
 This could be adapted to be an anytime search but the current application is
-primarily interested in solving the available Hexaban puzzles within reasonable
+primarily interested in solving the available Hexoban puzzles within reasonable
 resource allocations, and providing a baseline reasoning task that can be
 translated into a game description language (albeit level-by-level in GDL, or
 by passing the level into every action, state, object and function).

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// github:SymbolNotFound/hexaban/puzzle/tile.go
+// github:SymbolNotFound/hexoban/puzzle/tile.go
 
 package puzzle
 

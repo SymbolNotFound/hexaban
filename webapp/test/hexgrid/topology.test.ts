@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// github:SymbolNotFound/hexaban/webapp/test/hexgrid/geometry.ts
+// github:SymbolNotFound/hexoban/webapp/test/hexgrid/geometry.ts
 
 import { describe, it } from 'vitest'
 import { strictEqual, deepStrictEqual } from 'assert'

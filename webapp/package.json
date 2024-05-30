@@ -1,9 +1,9 @@
 {
-  "name": "hexaban",
+  "name": "hexoban",
   "type": "module",
   "version": "0.0.1",
   "description": "A crate-pushing puzzle on a hexagonal grid.",
-  "productName": "Hexaban",
+  "productName": "Hexoban",
   "author": "Kevin Damm <github@kevindamm.com>",
   "private": true,
   "scripts": {

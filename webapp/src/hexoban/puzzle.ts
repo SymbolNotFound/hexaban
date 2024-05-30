@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// github:SymbolNotFound/hexaban/webapp/src/puzzle/state.ts
+// github:SymbolNotFound/hexoban/webapp/src/puzzle/state.ts
 
 import { HexGrid, HexCoord, HexCoordIndex } from '../hexgrid/topology'
 import { HexMap, Direction } from '../hexgrid/map'

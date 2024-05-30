@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// github:SymbolNotFound/hexaban/cmd/editor/parser/scanner.go
+// github:SymbolNotFound/hexoban/cmd/editor/parser/scanner.go
 
 package parser
 

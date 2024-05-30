@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// github:SymbolNotFound/hexaban/cmd/editor/parser/parser_test.go
+// github:SymbolNotFound/hexoban/cmd/editor/parser/parser_test.go
 
 package parser
 
@@ -22,7 +22,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/SymbolNotFound/hexaban/puzzle"
+	"github.com/SymbolNotFound/hexoban/puzzle"
 )
 
 func TestParsePuzzleDefinition(t *testing.T) {

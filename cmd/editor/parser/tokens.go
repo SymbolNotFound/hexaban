@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// github:SymbolNotFound/hexaban/cmd/editor/parser/tokens.go
+// github:SymbolNotFound/hexoban/cmd/editor/parser/tokens.go
 
 package parser
 
-import "github.com/SymbolNotFound/hexaban/puzzle"
+import "github.com/SymbolNotFound/hexoban/puzzle"
 
 // A token is defined by its glyph (printable) representation and its position.
 // The position is relative to the first non-empty line of the text, so it may
@@ -49,7 +49,7 @@ const (
 	TOKEN_AT_GOAL     TokenType = '+'
 )
 
-// Returns true if the glyph is a valid hexaban tile representation.
+// Returns true if the glyph is a valid hexoban tile representation.
 func (glyph TokenType) IsTile() bool {
 	switch glyph {
 	case TOKEN_WALL, TOKEN_FLOOR, TOKEN_GOAL,

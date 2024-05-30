@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 
-  github:SymbolNotFound/hexaban/webapp/src/components/HexGrid.vue
+  github:SymbolNotFound/hexoban/webapp/src/components/HexGrid.vue
 -->
 
 <template>

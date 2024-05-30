@@ -1,3 +1,3 @@
-module github.com/SymbolNotFound/hexaban
+module github.com/SymbolNotFound/hexoban
 
 go 1.21.7

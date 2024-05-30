@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// github:SymbolNotFound/hexaban/cmd/editor/app_test.go
+// github:SymbolNotFound/hexoban/cmd/editor/app_test.go
 
 package main
 
@@ -22,15 +22,15 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/SymbolNotFound/hexaban"
+	"github.com/SymbolNotFound/hexoban"
 )
 
 func Test_app(t *testing.T) {
-	at := hexaban.NewHexCoord
+	at := hexoban.NewHexCoord
 	tests := []struct {
 		name     string
 		inputs   string
-		expected hexaban.Puzzle
+		expected hexoban.Puzzle
 	}{
 		{
 			"quick small",
@@ -44,12 +44,12 @@ testdata
 # @ #
  # #
 `,
-			hexaban.Puzzle{
+			hexoban.Puzzle{
 				Author:  "Anonymous",
 				Name:    "Prison Cell",
 				Source:  "testdata",
-				Terrain: []hexaban.HexCoord{at(2, 0)},
-				Init: hexaban.Init{
+				Terrain: []hexoban.HexCoord{at(2, 0)},
+				Init: hexoban.Init{
 					Ichiban: at(2, 0),
 				},
 			},
@@ -59,7 +59,7 @@ testdata
 			`Kevin Damm
 One-Way Mirror
 Source
-https://hexaban.com/levels/damm/011.json
+https://hexoban.com/levels/damm/011.json
 
        # #
     # #   # #
@@ -73,11 +73,11 @@ https://hexaban.com/levels/damm/011.json
     # #   # #
        # #
 `,
-			hexaban.Puzzle{
+			hexoban.Puzzle{
 				Author: "Kevin Damm",
 				Name:   "One-Way Mirror",
-				Source: "https://hexaban.com/levels/damm/011.json",
-				Terrain: []hexaban.HexCoord{
+				Source: "https://hexoban.com/levels/damm/011.json",
+				Terrain: []hexoban.HexCoord{
 					/*        # #        */
 					/*     # #   # #     */ at(5, -3),
 					/*  # #     $   #    */ at(4, -1), at(5, -2), at(6, -3), at(7, -4),
@@ -90,8 +90,8 @@ https://hexaban.com/levels/damm/011.json
 					/*     # #   # #     */ at(9, 1),
 					/*        # #        */
 				},
-				Init: hexaban.Init{
-					Goals: []hexaban.HexCoord{
+				Init: hexoban.Init{
+					Goals: []hexoban.HexCoord{
 						at(3, 1),
 						at(5, 1),
 						at(7, -1),
@@ -100,7 +100,7 @@ https://hexaban.com/levels/damm/011.json
 						at(9, -1),
 						at(11, -3),
 					},
-					Crates: []hexaban.HexCoord{
+					Crates: []hexoban.HexCoord{
 						at(6, -3),
 						at(5, -1),
 						at(5, 1),
@@ -117,7 +117,7 @@ https://hexaban.com/levels/damm/011.json
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			var reader *bufio.Reader = bufio.NewReader(strings.NewReader(tt.inputs))
-			var puzzle hexaban.Puzzle = hexaban.Puzzle{}
+			var puzzle hexoban.Puzzle = hexoban.Puzzle{}
 
 			app(reader, &puzzle)
 			if !reflect.DeepEqual(puzzle, tt.expected) {

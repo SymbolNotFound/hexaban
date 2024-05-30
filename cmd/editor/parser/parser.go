@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// github:SymbolNotFound/hexaban/cmd/editor/parser/parser.go
+// github:SymbolNotFound/hexoban/cmd/editor/parser/parser.go
 
 package parser
 
@@ -20,19 +20,19 @@ import (
 	"bufio"
 	"fmt"
 
-	"github.com/SymbolNotFound/hexaban"
+	hexoban "github.com/SymbolNotFound/hexoban"
 )
 
 // Parses a line-oriented sequence of (tile, gap) byte pairs representing the
-// double-height offset coordinates layout of a hexagonal grid for a hexaban
+// double-height offset coordinates layout of a hexagonal grid for a hexoban
 // puzzle's initial conditions.  See TokenType for the glyph representations.
 //
 // The grammar has no recursion in its production rules so a hand-rolled parser
 // is a slightly better representation than producing the parser from a grammar
 // definition, as there is little need for nesting and a complex initial token.
-func ParsePuzzleDefinition(reader *bufio.Reader, puzzle *hexaban.Puzzle) error {
+func ParsePuzzleDefinition(reader *bufio.Reader, puzzle *hexoban.Puzzle) error {
 	parser := parserState{scanner: reader}
-	tiles := make([]hexaban.Tile, 0)
+	tiles := make([]hexoban.Tile, 0)
 
 	for token := range parser.StreamTokens() {
 		switch token.glyph {

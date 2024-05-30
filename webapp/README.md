@@ -1,11 +1,9 @@
-# Hexaban (hexaban)
+# Hexoban (webapp implementation for a client UI)
 
-A crate-pushing puzzle on a hexagonal grid.
+A variant of the crate-pushing puzzle Sokoban, on a hexagonal grid.
 
 ## Install the dependencies
 ```bash
-yarn
-# or
 npm install
 ```
 
@@ -17,8 +15,6 @@ quasar dev
 
 ### Lint the files
 ```bash
-yarn lint
-# or
 npm run lint
 ```
 

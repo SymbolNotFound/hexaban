@@ -27,7 +27,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/SymbolNotFound/hexaban"
+	"github.com/SymbolNotFound/hexoban"
 )
 
 func main() {
@@ -38,7 +38,7 @@ func main() {
 			return
 		}
 
-		var puzzle hexaban.Puzzle
+		var puzzle hexoban.Puzzle
 		if err = json.Unmarshal(filedata, &puzzle); err != nil {
 			fmt.Println(err)
 			return
@@ -82,7 +82,7 @@ func allPuzzles(rootDir string) <-chan string {
 
 // Checks various properties of the puzzle for well-formedness and consistency.
 // Returns nil if there were no detected issues, or a string for each offense.
-func validatePuzzle(puzzle hexaban.Puzzle) []string {
+func validatePuzzle(puzzle hexoban.Puzzle) []string {
 	errs := make([]string, 0)
 
 	if len(puzzle.Terrain) == 0 {
@@ -95,7 +95,7 @@ func validatePuzzle(puzzle hexaban.Puzzle) []string {
 			fmt.Sprintf("# goals (%d) differnt from # crates (%d)\n", len(puzzle.Init.Goals), len(puzzle.Init.Crates)))
 	}
 
-	coordinates := make(map[hexaban.HexCoord]bool, len(puzzle.Terrain))
+	coordinates := make(map[hexoban.HexCoord]bool, len(puzzle.Terrain))
 	for _, coord := range puzzle.Terrain {
 		coordinates[coord] = true
 	}

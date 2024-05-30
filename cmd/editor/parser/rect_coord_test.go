@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// github:SymbolNotFound/hexaban/cmd/editor/rectcoord_test.go
+// github:SymbolNotFound/hexoban/cmd/editor/rectcoord_test.go
 
 package parser
 
 import (
 	"testing"
 
-	"github.com/SymbolNotFound/hexaban/puzzle"
+	"github.com/SymbolNotFound/hexoban/puzzle"
 )
 
 func TestRectCoord_ToHex(t *testing.T) {
