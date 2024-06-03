@@ -1,0 +1,6 @@
+{
+  "editor.useTabStops": false,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "vitest.rootConfig": "webapp/vitest.config.mts"
+}
