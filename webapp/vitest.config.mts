@@ -1,6 +1,3 @@
-/// <reference types="vitest" />
-/// <reference types="vite/client" />
-
 import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
@@ -10,17 +7,17 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 export default defineConfig({
   test: {
     environment: 'happy-dom',
-    setupFiles: 'test/vitest-setup-file.ts',
+    setupFiles: 'test/vitest/setup-file.ts',
     include: [
-      // Matches vitest tests in any subfolder of 'test'.
+      // Matches vitest tests in any subfolder of 'test/'
+      // with extension 'js', 'mjs', 'ts' and 'mts'
       'test/**/*.{test,spec}.{js,mjs,ts,mts}'
     ]
   },
   plugins: [
     vue({
       template: { transformAssetUrls }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    }) as any,
+    }),
     quasar({
       sassVariables: 'src/quasar-variables.scss'
     }),
