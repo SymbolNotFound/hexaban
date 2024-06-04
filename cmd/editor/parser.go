@@ -14,7 +14,7 @@
 //
 // github:SymbolNotFound/hexoban/cmd/editor/parser/parser.go
 
-package parser
+package main
 
 import (
 	"bufio"

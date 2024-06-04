@@ -14,7 +14,7 @@
 //
 // github:SymbolNotFound/hexoban/cmd/editor/parser/tokens.go
 
-package parser
+package main
 
 import "github.com/SymbolNotFound/hexoban/puzzle"
 
