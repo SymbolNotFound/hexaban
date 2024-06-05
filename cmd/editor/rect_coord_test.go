@@ -24,16 +24,20 @@ import (
 )
 
 func TestRectCoord_ToHex(t *testing.T) {
+	coord := puzzle.NewHexCoord
 	tests := []struct {
 		name  string
 		coord RectCoord
 		want  puzzle.HexCoord
 	}{
-		{"zero", RectCoord{0, 0}, puzzle.NewHexCoord(0, 0)},
-		{"i", RectCoord{1, 0}, puzzle.NewHexCoord(1, 0)},
-		{"i+j", RectCoord{0, 1}, puzzle.NewHexCoord(1, 1)},
-		{"col 4", RectCoord{4, 0}, puzzle.NewHexCoord(2, -2)},
-		{"3i - j", RectCoord{3, 1}, puzzle.NewHexCoord(3, 0)},
+		{"zero", RectCoord{0, 0}, coord(0, 0)},
+		{"simple", RectCoord{1, 1}, coord(1, 1)},
+		{"forty-two", RectCoord{0, 4}, coord(4, 2)},
+		{"hex 5 6", RectCoord{7, 5}, coord(5, 6)},
+		{"hex 2 3", RectCoord{4, 2}, coord(2, 3)},
+		{"hex 7 9", RectCoord{11, 7}, coord(7, 9)},
+		{"hex 7 5", RectCoord{3, 7}, coord(7, 5)},
+		{"hex 7 7", RectCoord{7, 7}, coord(7, 7)},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

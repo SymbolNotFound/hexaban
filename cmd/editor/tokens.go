@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// github:SymbolNotFound/hexoban/cmd/editor/parser/tokens.go
+// github:SymbolNotFound/hexoban/cmd/editor/tokens.go
 
 package main
 
@@ -72,7 +72,7 @@ type (
 )
 
 func (t token) parseTile() []Tile {
-	coord := RectCoord{t.col, t.line >> 1}.ToHex()
+	coord := RectCoord{t.col, t.line}.ToHex()
 
 	switch t.glyph {
 	case TOKEN_WALL:

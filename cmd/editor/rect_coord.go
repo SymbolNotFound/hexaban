@@ -69,16 +69,11 @@ type RectCoord struct {
 // This can be used by frontend clients to provide alternate views of the same
 // puzzle, as can be seen in layout.ts of the frontend (/webapp/src/hexgrid).
 func (coord RectCoord) ToHex() puzzle.HexCoord {
-	cHalf := coord.col >> 1
-	cOdd := coord.col & 1
-
-	// Each adjacent column (two column distance) is half i, half -j (with odd
-	// columns adding one more i).  Each row is one i and one j.
-	// We can reconstruct (i, j) from rows and columns by accumulating these
-	// partial representations per-column and per-row.
+	// We can reconstruct (i, j) from rows and columns by accumulating
+	// its partial representations per-column and per-row.
 	return puzzle.NewHexCoord(
-		int(cHalf+cOdd+coord.row),
-		int(coord.row-cHalf))
+		int(coord.row),
+		int((coord.row+coord.col)>>1))
 }
 
 // Convenient inverse of the above function, to get line and column coordinates

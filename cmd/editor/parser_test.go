@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// github:SymbolNotFound/hexoban/cmd/editor/parser/parser_test.go
+// github:SymbolNotFound/hexoban/cmd/editor/parser_test.go
 
 package main
 
@@ -36,50 +36,49 @@ func TestParsePuzzleDefinition(t *testing.T) {
 			"small room",
 			"  # #\n #   # \n  # #",
 			puzzle.Puzzle{
-				Terrain: []puzzle.HexCoord{at(2, -1)},
+				Terrain: []puzzle.HexCoord{at(1, 2)},
 			},
 		},
 		{
 			"odd small room",
 			" # # \n#   #\n # #\n",
-			puzzle.Puzzle{
-				Terrain: []puzzle.HexCoord{at(2, 0)},
+			puzzle.Puzzle{ // TODO parser has a problem if this map is nudged any number of columns over
+				Terrain: []puzzle.HexCoord{at(2, 2)},
 			},
 		},
 		{
 			"dws001",
-			`
-    # # #
+			`   # # #
+  #     #
    #     #
-    #     #
-   #   . #
-  #   .   #
- #   $ $   #
-  # # # *   #
-     # @   #
-      # # #
+  #   . #
+ #   .   #
+#   $ $   #
+ # # # *   #
+    # @   #
+     # # #
 
 ; credit for this puzzle goes to David W. Skinner`,
 			puzzle.Puzzle{
 				Terrain: []puzzle.HexCoord{
 					/*    # # #     */
-					/*   #     #    */ at(3, -2), at(4, -3),
-					/*    #     #   */ at(4, -2), at(5, -3),
-					/*   #   . #    */ at(4, -1), at(5, -2),
-					/*  #   .   #   */ at(4, 0), at(5, -1), at(6, -2),
-					/* #   $ $   #  */ at(4, 1), at(5, 0), at(6, -1), at(7, -2),
-					/*  # # # *   # */ at(7, -1), at(8, -2),
-					/*     # @   #  */ at(7, 0), at(8, -1),
+					/*   #     #    */ at(2, 3), at(2, 4),
+					/*    #     #   */ at(3, 4), at(3, 5),
+					/*   #   . #    */ at(4, 4), at(4, 5),
+					/*  #   .   #   */ at(5, 4), at(5, 5), at(5, 6),
+					/* #   $ $   #  */ at(6, 4), at(6, 5), at(6, 6), at(6, 7),
+					/*  # # # *   # */ at(7, 7), at(7, 8),
+					/*     # @   #  */ at(8, 7), at(8, 8),
 					/*      # # #   */
 				},
 				Init: puzzle.Init{
 					Goals: []puzzle.HexCoord{
-						at(5, -2), at(5, -1), at(7, -1),
+						at(4, 5), at(5, 5), at(7, 7),
 					},
 					Crates: []puzzle.HexCoord{
-						at(5, 0), at(6, -1), at(7, -1),
+						at(6, 5), at(6, 6), at(7, 7),
 					},
-					Ichiban: at(7, 0),
+					Ichiban: at(8, 7),
 				},
 			},
 		},
@@ -93,7 +92,9 @@ func TestParsePuzzleDefinition(t *testing.T) {
 				return
 			}
 			if !reflect.DeepEqual(puzzle, tt.expected) {
-				t.Errorf("ParsePuzzleDefinition() = %v, expected %v", puzzle, tt.expected)
+				result, _ := MapString(puzzle)
+				expected, _ := MapString(tt.expected)
+				t.Errorf("ParsePuzzleDefinition()\n%s\n,,,\nexpected:\n%s", result, expected)
 			}
 		})
 	}
