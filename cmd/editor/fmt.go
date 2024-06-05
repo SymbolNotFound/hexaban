@@ -24,7 +24,10 @@ import (
 	"github.com/SymbolNotFound/hexoban/puzzle"
 )
 
-const PREFIX TokenType = '>'
+const (
+	SPACE TokenType = ' '
+	BLANK TokenType = '_'
+)
 
 // Pretty-prints the puzzle as a line of lines of text, utilizing a transform
 // to the double-height offset coordinates equivalent.  Uses glyphs from .HSB
@@ -45,12 +48,14 @@ func MapString(p puzzle.Puzzle) (string, error) {
 	i, j := p.Terrain[0].I(), p.Terrain[0].J()
 	minRow, minCol := i, (j<<1)-i
 	maxRow, maxCol := i, (j<<1)-i
-	// Compute the max/min range of coordinates.
+	odd := minCol&1 == 0
+	// Compute the min & max (range of) coordinates.
 	for _, coord := range p.Terrain {
 		i, j = coord.I(), coord.J()
 		row, col := i, (j<<1)-i
 		if row < minRow {
 			minRow = row
+			odd = col&1 == 0
 		} else if row > maxRow {
 			maxRow = row
 		}
@@ -65,53 +70,31 @@ func MapString(p puzzle.Puzzle) (string, error) {
 	maxRow += 1
 	minCol -= 2
 	maxCol += 2
+	if odd { // plus extra padding for having an oddly-aligned first row
+		minRow -= 1
+		minCol -= 1
+		maxRow += 1
+	}
 
-	// Build left-aligned rectangular grid of FLOOR from terrain.
-	rectgrid := NewRectGrid(uint(maxRow-minRow+1), uint(maxCol-minCol+1))
+	// Build rectangular grid able to hold [minRow..maxRow] lines (inclusive)
+	// and [minCol..maxCol]
+	rectgrid := NewRectGrid(uint(maxRow-minRow)+1, uint(maxCol-minCol)+1)
 	for _, coord := range p.Terrain {
 		floorxy := HexToRect(coord, -minRow, -minCol)
 		rectgrid.Assign(floorxy.row, floorxy.col, TOKEN_FLOOR)
 	}
 
-	// wrap floors' perimeter with walls
+	// Wrap floors' perimeter with walls,
+	// and replace internal voids with walls
+	// (any neighbor of a floor that is not a floor).
 	// We do this after collecting all the floors above
-	// just in case they were not in a sorted order.
-
-	// first line has walls adjacent to any floor tiles on row 1.
-	for x, token := range rectgrid.glyphs[1] {
-		if token == TOKEN_FLOOR {
-			// we can prove that x-1 is still > 1 for all FLOOR tiles.
-			rectgrid.Assign(0, uint(x-1), TOKEN_WALL)
-			rectgrid.Assign(0, uint(x+1), TOKEN_WALL)
-		}
-	}
-	// Index of the last line of the grid.
-	last := uint(len(rectgrid.glyphs) - 1)
-
-	// for internal lines: add before, inside and after.
-	for i := uint(1); i < last; i++ {
-		first := true
-		for x, token := range rectgrid.glyphs[i] {
-			switch token {
-			case PREFIX:
-				if !first {
-					rectgrid.Assign(i, uint(x), TOKEN_WALL)
-				}
-			case TOKEN_FLOOR:
-				if first {
-					rectgrid.Assign(i, uint(x-2), TOKEN_WALL)
-					first = false
-				}
-			}
-		}
-		rectgrid.glyphs[i] = append(rectgrid.glyphs[i], TOKEN_WALL)
-	}
-
-	// last line has walls adjacent to floor tiles on penultimate row.
-	for x, token := range rectgrid.glyphs[last-1] {
-		if token == TOKEN_FLOOR {
-			rectgrid.Assign(last, uint(x-1), TOKEN_WALL)
-			rectgrid.Assign(last, uint(x+1), TOKEN_WALL)
+	// just in case they weren't in a sorted order.
+	for _, coord := range p.Terrain {
+		for _, neighbor := range neighbors(coord) {
+			rectcoord := HexToRect(neighbor.Coord(), -minRow, -minCol)
+			if rectgrid.Lookup(rectcoord.row, rectcoord.col) == BLANK {
+				rectgrid.Assign(rectcoord.row, rectcoord.col, TOKEN_WALL)
+			} // ignores invalid (out-of-bounds) and floor tiles.
 		}
 	}
 
@@ -158,10 +141,23 @@ func MapString(p puzzle.Puzzle) (string, error) {
 	return "", errors
 }
 
+func neighbors(coord puzzle.HexCoord) []puzzle.HexCoord {
+	return []puzzle.HexCoord{
+		puzzle.NewHexCoord(coord.I()-1, coord.J()-1),
+		puzzle.NewHexCoord(coord.I()-1, coord.J()),
+		puzzle.NewHexCoord(coord.I(), coord.J()-1),
+		puzzle.NewHexCoord(coord.I(), coord.J()+1),
+		puzzle.NewHexCoord(coord.I()+1, coord.J()),
+		puzzle.NewHexCoord(coord.I()+1, coord.J()+1),
+	}
+}
+
 type RectGrid struct {
 	glyphs [][]TokenType
 }
 
+// Constructor function for RectGrid, a rectangular grid of glyphs
+// that we incrementally draw the puzzle map onto.
 func NewRectGrid(rows uint, cols uint) *RectGrid {
 	rectgrid := RectGrid{
 		make([][]TokenType, rows)}
@@ -171,9 +167,31 @@ func NewRectGrid(rows uint, cols uint) *RectGrid {
 	return &rectgrid
 }
 
+// Returns the type of tile at the given coordinate, if the coordinate exists.
+// Returns SPACE if coordinate params are out of bounds or in between hexes.
+// Returns BLANK if it is a valid coordinate and not a floor.
+func (grid *RectGrid) Lookup(line uint, col uint) TokenType {
+	if line >= uint(len(grid.glyphs)) {
+		return SPACE
+	}
+	if col >= uint(len(grid.glyphs[line])) &&
+		(line == 0 || col > uint(len(grid.glyphs[line-1]))) &&
+		(line == uint(len(grid.glyphs)-1) || col > uint(len(grid.glyphs[line+1]))) {
+		return SPACE
+	}
+	if col >= uint(len(grid.glyphs[line])) {
+		return BLANK
+	}
+	return grid.glyphs[line][col]
+}
+
 func (grid *RectGrid) Assign(line uint, col uint, glyph TokenType) {
 	for int(col) >= len(grid.glyphs[line]) {
-		grid.glyphs[line] = append(grid.glyphs[line], PREFIX)
+		if int(col&1) != len(grid.glyphs[line])&1 {
+			grid.glyphs[line] = append(grid.glyphs[line], SPACE)
+		} else {
+			grid.glyphs[line] = append(grid.glyphs[line], BLANK)
+		}
 	}
 	grid.glyphs[line][col] = glyph
 }
@@ -185,12 +203,21 @@ func (grid *RectGrid) ValidFloor(line uint, col uint) bool {
 }
 
 func (grid *RectGrid) Stringify() string {
-	lines := make([]string, len(grid.glyphs))
-	for y, tokens := range grid.glyphs {
+	skippable := 0
+	for _, tokens := range grid.glyphs {
+		if len(tokens) == 0 {
+			skippable += 1
+		} else {
+			break
+		}
+	}
+
+	lines := make([]string, len(grid.glyphs)-skippable)
+	for y, tokens := range grid.glyphs[skippable:] {
 		line := make([]byte, len(tokens))
 		for x, token := range tokens {
 			switch token {
-			case PREFIX, TOKEN_FLOOR:
+			case BLANK, TOKEN_FLOOR:
 				line[x] = byte(' ')
 			default:
 				line[x] = byte(token)

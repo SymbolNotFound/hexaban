@@ -19,7 +19,6 @@ package main
 import (
 	"testing"
 
-	"github.com/SymbolNotFound/hexoban"
 	"github.com/SymbolNotFound/hexoban/puzzle"
 )
 
@@ -32,20 +31,20 @@ func TestMapString(t *testing.T) {
 	}{
 		{
 			"quick small",
-			hexoban.Puzzle{
+			puzzle.Puzzle{
 				Author: "Anonymous",
 				Title:  "Treasure Room",
 				Source: "testdata",
-				Terrain: []hexoban.HexCoord{
+				Terrain: []puzzle.HexCoord{
 					at(1, 2), at(1, 3), at(2, 2), at(2, 3), at(2, 4),
 				},
-				Init: hexoban.Init{
-					Goals:   []hexoban.HexCoord{at(2, 4)},
-					Crates:  []hexoban.HexCoord{at(2, 3)},
+				Init: puzzle.Init{
+					Goals:   []puzzle.HexCoord{at(2, 4)},
+					Crates:  []puzzle.HexCoord{at(2, 3)},
 					Ichiban: at(2, 2),
 				},
 			},
-			"  # # #\n #     #\n# @ $ . #\n # # # #\n",
+			"  # # #\n #     #\n# @ $ . #\n # # # #",
 		},
 		{
 			"more complete",
@@ -53,7 +52,7 @@ func TestMapString(t *testing.T) {
 				Author: "Kevin Damm",
 				Title:  "One-Way Mirror",
 				Source: "https://hexoban.com/levels/damm/011.json",
-				Terrain: []hexoban.HexCoord{
+				Terrain: []puzzle.HexCoord{
 					/*        # #        */
 					/*     # #   # #     */ at(2, 5),
 					/*  # #     $   #    */ at(3, 4), at(3, 5), at(3, 6), at(3, 7),
@@ -66,11 +65,11 @@ func TestMapString(t *testing.T) {
 					/*     # #   # #     */ at(10, 9),
 					/*        # #        */
 				},
-				Init: hexoban.Init{
-					Goals: []hexoban.HexCoord{
+				Init: puzzle.Init{
+					Goals: []puzzle.HexCoord{
 						at(4, 3), at(6, 5), at(6, 7), at(6, 9), at(8, 7), at(8, 9), at(8, 11),
 					},
-					Crates: []hexoban.HexCoord{
+					Crates: []puzzle.HexCoord{
 						at(3, 6), at(4, 5), at(6, 5), at(6, 6), at(6, 8), at(6, 9), at(9, 8),
 					},
 					Ichiban: at(4, 8),
@@ -87,8 +86,7 @@ func TestMapString(t *testing.T) {
   #   . # .   . #
    #   $     # #
     # #   # #
-       # #
-`[1:], // Trim initial newline, it's only there for indentation, readability.
+       # #`[1:], // Trim initial newline
 		},
 	}
 	for _, tt := range tests {
@@ -100,6 +98,26 @@ func TestMapString(t *testing.T) {
 					t.Errorf("MapString()\n%v\nexpected:\n%v", got, tt.expect)
 				}
 			}
+		})
+	}
+}
+
+func TestRectGrid_Assign(t *testing.T) {
+	type args struct {
+		line  uint
+		col   uint
+		glyph TokenType
+	}
+	tests := []struct {
+		name string
+		grid *RectGrid
+		args args
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.grid.Assign(tt.args.line, tt.args.col, tt.args.glyph)
 		})
 	}
 }
