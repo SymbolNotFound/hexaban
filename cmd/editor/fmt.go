@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/SymbolNotFound/hexoban/puzzle"
+	"github.com/SymbolNotFound/hexoban"
 )
 
 const (
@@ -39,7 +39,7 @@ const (
 // .    #   $ . #
 // .	   # @   #
 // .	    # # #
-func MapString(p puzzle.Puzzle) (string, error) {
+func MapString(p hexoban.Puzzle) (string, error) {
 	if len(p.Terrain) == 0 {
 		return "", errors.New("[terrain undefined]")
 	}
@@ -141,14 +141,14 @@ func MapString(p puzzle.Puzzle) (string, error) {
 	return "", errors
 }
 
-func neighbors(coord puzzle.HexCoord) []puzzle.HexCoord {
-	return []puzzle.HexCoord{
-		puzzle.NewHexCoord(coord.I()-1, coord.J()-1),
-		puzzle.NewHexCoord(coord.I()-1, coord.J()),
-		puzzle.NewHexCoord(coord.I(), coord.J()-1),
-		puzzle.NewHexCoord(coord.I(), coord.J()+1),
-		puzzle.NewHexCoord(coord.I()+1, coord.J()),
-		puzzle.NewHexCoord(coord.I()+1, coord.J()+1),
+func neighbors(coord hexoban.HexCoord) []hexoban.HexCoord {
+	return []hexoban.HexCoord{
+		hexoban.NewHexCoord(coord.I()-1, coord.J()-1),
+		hexoban.NewHexCoord(coord.I()-1, coord.J()),
+		hexoban.NewHexCoord(coord.I(), coord.J()-1),
+		hexoban.NewHexCoord(coord.I(), coord.J()+1),
+		hexoban.NewHexCoord(coord.I()+1, coord.J()),
+		hexoban.NewHexCoord(coord.I()+1, coord.J()+1),
 	}
 }
 
@@ -242,7 +242,7 @@ func (merr *multierror) add(err string) {
 }
 
 // Returns a string with basic information about the puzzle.
-func Info(puzzle puzzle.Puzzle) string {
+func Info(puzzle hexoban.Puzzle) string {
 	// TODO: what to put here?  sizeof Terrain?  #crates|goals?  Complexity?
 	return fmt.Sprintf("%s\nby %s\n\n", puzzle.Title, puzzle.Author)
 }

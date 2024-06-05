@@ -16,7 +16,7 @@
 
 package main
 
-import "github.com/SymbolNotFound/hexoban/puzzle"
+import "github.com/SymbolNotFound/hexoban"
 
 // This RectCoord is only provided within the `main` package of a CLI tool.
 // It should not be used in concert with other clients of the hexoban library.
@@ -68,10 +68,10 @@ type RectCoord struct {
 // to represent all rotations and reflections available for hexagonal grids.
 // This can be used by frontend clients to provide alternate views of the same
 // puzzle, as can be seen in layout.ts of the frontend (/webapp/src/hexgrid).
-func (coord RectCoord) ToHex() puzzle.HexCoord {
+func (coord RectCoord) ToHex() hexoban.HexCoord {
 	// We can reconstruct (i, j) from rows and columns by accumulating
 	// its partial representations per-column and per-row.
-	return puzzle.NewHexCoord(
+	return hexoban.NewHexCoord(
 		int(coord.row),
 		int((coord.row+coord.col)>>1))
 }
@@ -80,7 +80,7 @@ func (coord RectCoord) ToHex() puzzle.HexCoord {
 // A translation from an origin (top-left position) is performed, all returned
 // RectCoord coordinates will be added to fromCol, fromRow.
 // All intervals on the same line are 2, all odd rows are odd-columned.
-func HexToRect(hex puzzle.HexCoord, fromCol, fromRow int) RectCoord {
+func HexToRect(hex hexoban.HexCoord, fromCol, fromRow int) RectCoord {
 	return RectCoord{
 		col: uint((hex.J() << 1) - hex.I() + fromCol),
 		row: uint(hex.I() + fromRow),

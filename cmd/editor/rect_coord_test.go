@@ -20,15 +20,15 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/SymbolNotFound/hexoban/puzzle"
+	"github.com/SymbolNotFound/hexoban"
 )
 
 func TestRectCoord_ToHex(t *testing.T) {
-	coord := puzzle.NewHexCoord
+	coord := hexoban.NewHexCoord
 	tests := []struct {
 		name  string
 		coord RectCoord
-		want  puzzle.HexCoord
+		want  hexoban.HexCoord
 	}{
 		{"zero", RectCoord{0, 0}, coord(0, 0)},
 		{"simple", RectCoord{1, 1}, coord(1, 1)},
@@ -49,10 +49,10 @@ func TestRectCoord_ToHex(t *testing.T) {
 }
 
 func TestHexToRect(t *testing.T) {
-	coord := puzzle.NewHexCoord
+	coord := hexoban.NewHexCoord
 	tests := []struct {
 		name   string
-		coord  puzzle.HexCoord
+		coord  hexoban.HexCoord
 		expect RectCoord
 	}{
 		{"zero", coord(0, 0), RectCoord{0, 0}},

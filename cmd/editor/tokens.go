@@ -16,7 +16,7 @@
 
 package main
 
-import "github.com/SymbolNotFound/hexoban/puzzle"
+import "github.com/SymbolNotFound/hexoban"
 
 // A token is defined by its glyph (printable) representation and its position.
 // The position is relative to the first non-empty line of the text, so it may
@@ -61,14 +61,14 @@ func (glyph TokenType) IsTile() bool {
 }
 
 type (
-	Tile   = puzzle.Tile
-	Floor  = puzzle.Floor
-	Wall   = puzzle.Wall
-	Goal   = puzzle.Goal
-	Crate  = puzzle.Crate
-	Player = puzzle.Player
+	Tile   = hexoban.Tile
+	Floor  = hexoban.Floor
+	Wall   = hexoban.Wall
+	Goal   = hexoban.Goal
+	Crate  = hexoban.Crate
+	Player = hexoban.Player
 
-	HexCoord = puzzle.HexCoord
+	HexCoord = hexoban.HexCoord
 )
 
 func (t token) parseTile() []Tile {

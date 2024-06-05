@@ -23,7 +23,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/SymbolNotFound/hexoban/puzzle"
+	"github.com/SymbolNotFound/hexoban"
 )
 
 type Builder interface {
@@ -35,7 +35,7 @@ type Builder interface {
 	// Retrieve the puzzle definition
 	// after BuildMeta() and/or ParsePuzzleMap()
 	// have constructed it.
-	BuildPuzzle() puzzle.Puzzle
+	GetPuzzle() hexoban.Puzzle
 
 	// Defines a flag and CLI combination for a string value from user input.
 	RequiredString(
@@ -61,16 +61,16 @@ type Builder interface {
 
 // Prepare a puzzle builder with its reader.  Sets up flag parsing specification.
 func PuzzleBuilder() Builder {
-	return &builderState{make([]IInput, 0), &puzzle.Puzzle{}}
+	return &builderState{make([]IInput, 0), &hexoban.Puzzle{}}
 }
 
 // Maintains the list of inputs and values entered.
 type builderState struct {
 	inputs []IInput
-	puzzle *puzzle.Puzzle
+	puzzle *hexoban.Puzzle
 }
 
-func (state *builderState) BuildPuzzle() puzzle.Puzzle {
+func (state *builderState) GetPuzzle() hexoban.Puzzle {
 	return *state.puzzle
 }
 

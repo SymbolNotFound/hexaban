@@ -22,28 +22,28 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/SymbolNotFound/hexoban/puzzle"
+	"github.com/SymbolNotFound/hexoban"
 )
 
 func TestParsePuzzleDefinition(t *testing.T) {
-	at := puzzle.NewHexCoord
+	at := hexoban.NewHexCoord
 	tests := []struct {
 		name     string
 		text     string
-		expected puzzle.Puzzle
+		expected hexoban.Puzzle
 	}{
 		{
 			"small room",
 			"  # #\n #   # \n  # #",
-			puzzle.Puzzle{
-				Terrain: []puzzle.HexCoord{at(1, 2)},
+			hexoban.Puzzle{
+				Terrain: []hexoban.HexCoord{at(1, 2)},
 			},
 		},
 		{
 			"odd small room",
 			" # # \n#   #\n # #\n",
-			puzzle.Puzzle{ // TODO parser has a problem if this map is nudged any number of columns over
-				Terrain: []puzzle.HexCoord{at(2, 2)},
+			hexoban.Puzzle{ // TODO parser has a problem if this map is nudged any number of columns over
+				Terrain: []hexoban.HexCoord{at(2, 2)},
 			},
 		},
 		{
@@ -59,8 +59,8 @@ func TestParsePuzzleDefinition(t *testing.T) {
      # # #
 
 ; credit for this puzzle goes to David W. Skinner`,
-			puzzle.Puzzle{
-				Terrain: []puzzle.HexCoord{
+			hexoban.Puzzle{
+				Terrain: []hexoban.HexCoord{
 					/*    # # #     */
 					/*   #     #    */ at(2, 3), at(2, 4),
 					/*    #     #   */ at(3, 4), at(3, 5),
@@ -71,11 +71,11 @@ func TestParsePuzzleDefinition(t *testing.T) {
 					/*     # @   #  */ at(8, 7), at(8, 8),
 					/*      # # #   */
 				},
-				Init: puzzle.Init{
-					Goals: []puzzle.HexCoord{
+				Init: hexoban.Init{
+					Goals: []hexoban.HexCoord{
 						at(4, 5), at(5, 5), at(7, 7),
 					},
-					Crates: []puzzle.HexCoord{
+					Crates: []hexoban.HexCoord{
 						at(6, 5), at(6, 6), at(7, 7),
 					},
 					Ichiban: at(8, 7),
@@ -86,7 +86,7 @@ func TestParsePuzzleDefinition(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			reader := bufio.NewReader(strings.NewReader(tt.text))
-			puzzle := puzzle.Puzzle{}
+			puzzle := hexoban.Puzzle{}
 			if err := ParsePuzzleDefinition(reader, &puzzle); err != nil {
 				t.Errorf("ParsePuzzleDefinition() error = %v", err)
 				return
