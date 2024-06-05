@@ -86,7 +86,7 @@ func TestMapString(t *testing.T) {
   #   . # .   . #
    #   $     # #
     # #   # #
-       # #`[1:], // Trim initial newline
+       # #`[1:], // trim initial newline
 		},
 	}
 	for _, tt := range tests {
@@ -98,26 +98,6 @@ func TestMapString(t *testing.T) {
 					t.Errorf("MapString()\n%v\nexpected:\n%v", got, tt.expect)
 				}
 			}
-		})
-	}
-}
-
-func TestRectGrid_Assign(t *testing.T) {
-	type args struct {
-		line  uint
-		col   uint
-		glyph TokenType
-	}
-	tests := []struct {
-		name string
-		grid *RectGrid
-		args args
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			tt.grid.Assign(tt.args.line, tt.args.col, tt.args.glyph)
 		})
 	}
 }
