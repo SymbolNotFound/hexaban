@@ -50,7 +50,7 @@ func main() {
 			reader := bufio.NewReader(f)
 			err = builder.ParsePuzzleMap(reader)
 			if err == nil {
-				fmt.Println(MapString(builder.BuildPuzzle()))
+				fmt.Println(MapString(builder.GetPuzzle()))
 			} else {
 				fmt.Println(err)
 			}
@@ -67,19 +67,19 @@ func main() {
 		func(s string) bool { return true }, []string{})
 
 	builder.ParseMeta(stdin)
-	for len(builder.BuildPuzzle().Terrain) == 0 {
+	for len(builder.GetPuzzle().Terrain) == 0 {
 		// read puzzle contents from stdin.
 		fmt.Println("Enter puzzle as a doubled-height offset grid here:")
 		err := builder.ParsePuzzleMap(stdin)
 		if err == nil {
-			fmt.Println(MapString(builder.BuildPuzzle()))
+			fmt.Println(MapString(builder.GetPuzzle()))
 		} else {
 			fmt.Println(err)
 			fmt.Println("\nerror parsing puzzle, try again:")
 		}
 	}
 
-	puzzle := builder.BuildPuzzle()
+	puzzle := builder.GetPuzzle()
 	fmt.Println("Successfully parsed metadata & puzzle definition.")
 	fmt.Println(Info(puzzle))
 
