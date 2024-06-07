@@ -80,21 +80,52 @@ func (state *builderState) ParseMeta(io *bufio.Reader) error {
 	}
 
 	for _, input := range state.inputs {
-		// TODO
-		input = input
 		// prompt for each input that is required and undefined,
+		if input.Required() {
+			if err := readInput(io, input); err != nil {
+				return err
+			}
+		}
 	}
-	//for
-	// prompt for additional inputs/corrections until empty input.
-	//}
+
+	for { // Repeat until the user wants to stop.
+		attrName := readLine(io, "Additional (optional) attributes? ")
+		attrName = strings.Trim(attrName, " \b\f\t\r\n")
+		if attrName == "" {
+			// An empty string for attribute name indicates the user is done.
+			break
+		}
+		for _, input := range state.inputs {
+			if input.Name() == attrName {
+				if err := readInput(io, input); err != nil {
+					return err
+				}
+			}
+		}
+	}
 
 	return nil
 }
 
-func (state *builderState) ParsePuzzleMap(io *bufio.Reader) error {
-	// TODO
+func readInput(io *bufio.Reader, input IInput) error {
+	str, ok := input.Value().(string)
+	if ok && str == "" {
+		input.(*StringInput).value = readNonemptyLine(io, input.Prompt()+"? ")
+		return nil
+	}
 
-	return nil
+	integer, ok := input.Value().(int)
+	if ok && integer == 0 {
+		// All integer attributes here are optional, gracefully handle errors.
+		input.(*IntegerInput).value = readInteger(io, input.Prompt()+"? ", 0)
+		return nil
+	}
+
+	return fmt.Errorf("unrecognized type for required param %s: %t", input.Name(), input)
+}
+
+func (state *builderState) ParsePuzzleMap(io *bufio.Reader) error {
+	return ParsePuzzleDefinition(io, state.puzzle)
 }
 
 type IInput interface {
