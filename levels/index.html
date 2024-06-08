@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+
+  </script>
+  <style>
+use {
+  transition: 0.32s;
+  cursor: pointer;
+  fill: transparent;
+}
+.hex-wrap use:hover {
+  fill: #8849d4;
+}
+
+svg {
+  width: 600px;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0;
+  height: 100vh;
+}
+  </style>
+</head>
+<body>
+<svg viewBox="0 0 100 100">
+  <defs>
+    <g id="hex">
+      <polygon stroke="#000000" stroke-width="0.5" points="-9,-5 -9,5 0,10, 9,5 9,-5 0,-10" />
+    </g>
+  </defs>
+  
+  <g class="hex-wrap">
+    <use xlink:href="#hex" transform="translate(23, 50)"/>
+    <use xlink:href="#hex" transform="translate(32, 35)"/>
+    <use xlink:href="#hex" transform="translate(32, 65)"/>
+    <use xlink:href="#hex" transform="translate(41, 50)"/>
+    <use xlink:href="#hex" transform="translate(50, 35)"/>
+    <use xlink:href="#hex" transform="translate(50, 65)"/>
+    <use xlink:href="#hex" transform="translate(59, 50)"/>
+    <use xlink:href="#hex" transform="translate(68, 35)"/>
+    <use xlink:href="#hex" transform="translate(68, 65)"/>
+    <use xlink:href="#hex" transform="translate(77, 50)"/>
+  </g>
+</svg>
+</body>
+</html>
