@@ -1,9 +1,9 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <hex-grid></hex-grid>
+    <hex-view></hex-view>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import HexGrid from 'components/HexGrid.vue'
+import HexView from '../components/HexView.vue'
 </script>

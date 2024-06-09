@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh lpR fFf">
 
-    <q-header reveal elevated class="bg-primary text-white" height-hint="98">
+    <q-header reveal elevated class="hidden bg-primary text-white" height-hint="98">
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
@@ -15,8 +15,8 @@
         <q-route-tab v-for="item in breadcrumbs"
          :key="item.key"
          :to="item.route" :label="item.label" />
-        <q-route-tab to="/page2" label="Page Two" />
-        <q-route-tab to="/page3" label="Page Three" />
+        <q-route-tab to="/p/damm/011" label="Yesterday's puzzle" />
+        <q-route-tab to="/p/damm/004" label="Today's challenge" />
       </q-tabs>
     </q-header>
 
