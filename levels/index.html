@@ -15,7 +15,13 @@ use {
 }
 
 svg {
-  width: 600px;
+  width: 690px;
+  font-family: "Roboto", "-apple-system", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  font-size: 14px;
 }
 body {
   display: flex;
@@ -28,24 +34,72 @@ body {
   </style>
 </head>
 <body>
-<svg viewBox="0 0 100 100">
-  <defs>
-    <g id="hex">
-      <polygon stroke="#000000" stroke-width="0.5" points="-9,-5 -9,5 0,10, 9,5 9,-5 0,-10" />
-    </g>
+<svg viewBox="-100 -42 130 144">
+  <defs><!-- floor tiles -->
+    <g id="floor">
+      <polygon stroke="#000000" stroke-width="0.5" points="-9,-5 -9,5 0,10, 9,5 9,-5 0,-10"></polygon>
+    </g><!-- goal tiles, immovable -->
+    <g id="goal">
+      <circle cx="0" cy="0" r="5.0" stroke-width="1.2" stroke="#B8B8B8"></circle>
+    </g><!-- crates, the movable objects -->
+    <g id="crate"><!-- <circle cx="0" cy="0" r="3.0" stroke-width="1.2" fill="#FFD700" /> --><text x="-3.4" y="1.2"
+        font-size=".85em" dominant-baseline="middle" stroke-width="0.2" stroke="#FFD700" fill="#D4AA00"> $ </text><text
+        x="-3.4" y="1.2" transform="rotate(90)" font-size=".85em" dominant-baseline="middle" stroke-width="0.2"
+        stroke="#FFD700" fill="#D4AA00"> $ </text></g><!-- the player character -->
+    <g id="at"><text x="-5.2" y="0" font-size=".85em" dominant-baseline="middle" stroke-width="0.2" stroke="#D5ADEE"
+        fill="#D5ADEE"> @ </text></g>
   </defs>
-  
-  <g class="hex-wrap">
-    <use xlink:href="#hex" transform="translate(23, 50)"/>
-    <use xlink:href="#hex" transform="translate(32, 35)"/>
-    <use xlink:href="#hex" transform="translate(32, 65)"/>
-    <use xlink:href="#hex" transform="translate(41, 50)"/>
-    <use xlink:href="#hex" transform="translate(50, 35)"/>
-    <use xlink:href="#hex" transform="translate(50, 65)"/>
-    <use xlink:href="#hex" transform="translate(59, 50)"/>
-    <use xlink:href="#hex" transform="translate(68, 35)"/>
-    <use xlink:href="#hex" transform="translate(68, 65)"/>
-    <use xlink:href="#hex" transform="translate(77, 50)"/>
+  <g class="hexgrid">
+    <use class="floor" xlink:href="#floor" transform="translate(-36, -30)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-63, -15)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-45, -15)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-27, -15)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-9, -15)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-90, 0)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-72, 0)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-54, 0)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-18, 0)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(0, 0)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-63, 15)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-45, 15)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-9, 15)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(9, 15)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-90, 30)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-72, 30)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-54, 30)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-36, 30)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-18, 30)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(0, 30)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(18, 30)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-81, 45)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-63, 45)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-27, 45)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-9, 45)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-72, 60)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-54, 60)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-18, 60)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(0, 60)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(18, 60)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-63, 75)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-45, 75)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-27, 75)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-9, 75)"></use>
+    <use class="floor" xlink:href="#floor" transform="translate(-36, 90)"></use>
+    <use xlink:href="#goal" transform="translate(-90, 0)"></use>
+    <use xlink:href="#goal" transform="translate(-72, 30)"></use>
+    <use xlink:href="#goal" transform="translate(-36, 30)"></use>
+    <use xlink:href="#goal" transform="translate(0, 30)"></use>
+    <use xlink:href="#goal" transform="translate(-54, 60)"></use>
+    <use xlink:href="#goal" transform="translate(-18, 60)"></use>
+    <use xlink:href="#goal" transform="translate(18, 60)"></use>
+    <use xlink:href="#crate" transform="translate(-27, -15)"></use>
+    <use xlink:href="#crate" transform="translate(-54, 0)"></use>
+    <use xlink:href="#crate" transform="translate(-72, 30)"></use>
+    <use xlink:href="#crate" transform="translate(-54, 30)"></use>
+    <use xlink:href="#crate" transform="translate(-18, 30)"></use>
+    <use xlink:href="#crate" transform="translate(0, 30)"></use>
+    <use xlink:href="#crate" transform="translate(-45, 75)"></use>
+    <use xlink:href="#at" transform="translate(-18, 0)"></use>
   </g>
 </svg>
 </body>

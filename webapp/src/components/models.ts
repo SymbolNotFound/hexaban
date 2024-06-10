@@ -38,6 +38,7 @@ export function CoordToTuple (coord: HexCoord): HexCoordTuple {
 export interface PuzzleInitJSON {
   goals: HexCoordTuple[]
   crates: HexCoordTuple[]
+  ichiban: HexCoordTuple
 }
 
 // Serialized representation of a puzzle's boundaries and initial conditions,

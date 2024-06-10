@@ -19,25 +19,42 @@
 <template>
   <!-- TODO should be computing viewBox based on size of puzzle map clamped to size of window/drawable area -->
   <svg
-    viewBox="-100 -42 130 144">
+    ref="el"
+    :viewBox="(hv && hv.viewBox()) || '0 0 100 100'">
   <defs>
-    <g id="hex">
+    <!-- floor tiles -->
+    <g id="floor">
       <polygon stroke="#000000" stroke-width="0.5" :points="hexpoints()" />
     </g>
+    <!-- goal tiles, immovable -->
     <g id="goal">
-      <circle cx="0" cy="0" r="5.0" stroke-width="1.2" stroke="#D5ADEE" />
+      <circle cx="0" cy="0" r="5.0" stroke-width="1.2" stroke="#B8B8B8" />
     </g>
+    <!-- crates, the movable objects -->
     <g id="crate">
-      <circle cx="0" cy="0" r="3.0" stroke-width="1.2" fill="#D4AF42" />
+      <!-- <circle cx="0" cy="0" r="3.0" stroke-width="1.2" fill="#FFD700" /> -->
+      <text x=-3.4 y=1.2 font-size=".85em"
+       dominant-baseline="middle"
+       stroke-width="0.2" stroke="#FFD700" fill="#D4AA00">
+      $
+      </text>
+      <text x=-3.4 y=1.2 transform="rotate(90)" font-size=".85em"
+       dominant-baseline="middle"
+       stroke-width="0.2" stroke="#FFD700" fill="#D4AA00">
+      $
+      </text>
     </g>
+    <!-- the player character -->
     <g id="at">
       <text x=-5.2 y=0 font-size=".85em"
-       style="dominant-baseline: middle"
-       stroke-width="0.2" stroke="#000000" fill="#000000">@</text>
+       dominant-baseline="middle"
+       stroke-width="0.2" stroke="#D5ADEE" fill="#D5ADEE">
+      @
+      </text>
     </g>
   </defs>
   <g class="hexgrid">
-    <use class="floor" v-for="coord in griddata.terrain" :key="coordID(coord)" xlink:href="#hex" :transform="translate(coord)" />
+    <use class="floor" v-for="coord in griddata.terrain" :key="coordID(coord)" xlink:href="#floor" :transform="translate(coord)" />
 
     <use v-for="goal in griddata.init.goals" :key="goalID(goal)" xlink:href="#goal" :transform="translate(goal)" />
     <use v-for="crate in griddata.init.crates" :key="crateID(crate)" xlink:href="#crate" :transform="translate(crate)" />
@@ -71,12 +88,10 @@ body {
 </style>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { PuzzleJSON } from './models'
 
 const el = ref<SVGSVGElement>()
-const width = computed(() => window.innerWidth)
-const height = computed(() => window.innerHeight)
 
 const w = 9
 const h = 15
@@ -113,20 +128,19 @@ const griddata : PuzzleJSON = {
     crates: [
       [-1, -2], [0, -3], [2, -3], [2, -2], [2, 0], [2, 1], [5, 0]
     ],
-    ichiban: [0, 0]
+    ichiban: [0, -1]
   }
 }
 
 onMounted(() => {
-  // viewable grid dimensions
-  // const xdim = 4 // Math.floor((width.value) / dx)
-  // const ydim = 3 // Math.floor((height.value) / dy)
   if (el.value !== undefined) {
-    const hv = new HexView(el.value, griddata)
-    alert(hv.svg)
+    hv.value = new HexView(el.value, griddata)
+    hv.value.Play()
   }
 
-  // Omitted a brief experiment with doing this on canvas.  I think the interactivity of SVG will come in much more useful here.
+  // viewable grid dimensions
+  // const xdim = 4 // Math.floor((window.innerWidth) / dx)
+  // const ydim = 3 // Math.floor((window.innerHeight) / dy)
 })
 
 // Represents a HexGrid and HexLayout in terms of the viewBox and local
@@ -141,28 +155,55 @@ class HexView {
               [number, number, number],
               [number, number, number]]
 
-  min: [number, number]
-  max: [number, number]
-
   svg: SVGSVGElement
-  viewBox: string
+  view: [number, number, number, number]
+  viewBox: () => string
 
   constructor (el: SVGSVGElement, griddata: PuzzleJSON) {
-    // Identity transform (zero translation, uniform projection).
+    this.view = [-100, -42, 130, 144]
+    // Identity transform (zero translation and identical projection).
     this.transform = [
-      [0, 0, 0],
-      [-1, 1, 0],
-      [-1, 0, 1]]
+      [1, 0, 0],
+      [0, 1, 0],
+      [0, 0, 1]]
     this.svg = el
+
     if (griddata.terrain.length > 0) {
-      this.min = [griddata.terrain[0][0], griddata.terrain[0][1]]
-      this.max = [griddata.terrain[0][0], griddata.terrain[0][1]]
-    } else {
-      this.min = [0, 0]
-      this.max = [0, 0]
+      const min = [griddata.terrain[0][0], griddata.terrain[0][1]]
+      const max = [griddata.terrain[0][0], griddata.terrain[0][1]]
+
+      for (const coord of griddata.terrain) {
+        if (coord[0] < min[0]) {
+          min[0] = coord[0]
+        } else if (coord[0] > max[0]) {
+          max[0] = coord[0]
+        }
+
+        if (coord[1] < min[1]) {
+          min[1] = coord[1]
+        } else if (coord[1] > max[1]) {
+          max[1] = coord[1]
+        }
+      }
     }
 
-    this.viewBox = '-42 -51 100 150'
+    this.viewBox = () => `${this.view[0]} ${this.view[1]} ${this.view[2]} ${this.view[3]}`
+  }
+
+  Play () {
+    addEventListener('replay', (event) => { alert('TODO' + event) })
+    addEventListener('stop', (event) => { alert('TODO' + event) })
+  }
+
+  Replay () {
+    // removeEventListener('replay', this.replayListener )
+    addEventListener('play', (event) => { alert('TODO' + event) })
+  }
+
+  Stop () {
+    addEventListener('stop', (event) => { alert('TODO' + event) })
   }
 }
+
+const hv = ref<HexView>()
 </script>
