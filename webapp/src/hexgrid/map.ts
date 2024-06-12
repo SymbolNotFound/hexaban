@@ -16,19 +16,25 @@
 
 import { HexGrid, HexCoordIndex } from './topology'
 
-// Odd values are pointy-topped, even values are flat-topped.
-// Rotations follow clockwise in 30-degree increments for twelve iid rotations.
-export type Rotation = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11
+// Odd values are flat-topped, even values are pointy-topped.
+// Orientation follow clockwise in 30-degree increments for 12 total rotations.
+export type Orientation = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11
 
 export class GridLayout {
   grid: HexGrid
-  rotation: Rotation
   transform: [[number, number], [number, number]]
 
-  constructor (grid: HexGrid, rotation: Rotation = 1) {
+  constructor (grid: HexGrid, orientation: Orientation = 0) {
     this.grid = grid
-    this.rotation = rotation
-    this.transform = [[1, 0], [0, 1]] // identity
+    if (orientation === 0) {
+      this.transform = [ // TODO derive transform from orientation.
+        // identity matrix; no scaling or rotation (orientation=0).
+        [1, 0],
+        [0, 1]]
+    } else {
+      // TODO
+      this.transform = [[1, 0], [0, 1]]
+    }
   }
 }
 

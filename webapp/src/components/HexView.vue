@@ -26,6 +26,13 @@
     <g id="floor">
       <polygon stroke="#000000" stroke-width="0.5" :points="hexpoints()" />
     </g>
+    <g id="wall">
+      <polygon stroke="#555" fill="#222" stroke-width="0.7" :points="hexpoints()" />
+      <text x=-4.0 y=1.2 font-size=".85em" dominant-baseline="middle"
+       stroke-width="0.23" stroke="#999" fill="#EFEFEF">
+      #
+      </text>
+    </g>
     <!-- goal tiles, immovable -->
     <g id="goal">
       <circle cx="0" cy="0" r="5.0" stroke-width="1.2" stroke="#B8B8B8" />
@@ -53,12 +60,38 @@
       </text>
     </g>
   </defs>
-  <g class="hexgrid">
-    <use class="floor" v-for="coord in griddata.terrain" :key="coordID(coord)" xlink:href="#floor" :transform="translate(coord)" />
+  <g class="hexgrid" v-if="!!hv">
+    <use v-for="(coord, index) in hv.Terrain"
+      xlink:href="#floor"
+      class="floor"
+      :key="'floor'+(index+1)"
+      :transform="translate(coord)"
+    />
+    <use v-for="coord in hv.Walls"
+      xlink:href="#wall"
+      class="wall"
+      :key="'wall_'+coord.key()"
+      :transform="translate(coord)"
+    />
 
-    <use v-for="goal in griddata.init.goals" :key="goalID(goal)" xlink:href="#goal" :transform="translate(goal)" />
-    <use v-for="crate in griddata.init.crates" :key="crateID(crate)" xlink:href="#crate" :transform="translate(crate)" />
-    <use xlink:href="#at" :transform="translate(griddata.init.ichiban)" />
+    <use v-for="goal in hv.Goals"
+     xlink:href="#goal"
+     class="goal"
+     :key="'goal_'+goal.key()"
+     :transform="translate(goal)"
+    />
+    <use v-for="crate in hv.Crates"
+     xlink:href="#crate"
+     class="crate"
+     :key="'crate_'+crate.key()"
+     :transform="translate(crate)"
+     />
+
+     <use
+      xlink:href="#at"
+      class="ichiban"
+      :transform="translate(hv.Ichiban)"
+     />
   </g>
   </svg>
 </template>
@@ -89,7 +122,8 @@ body {
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { PuzzleJSON } from './models'
+import { TupleToCoord, PuzzleJSON } from './models'
+import { HexCoord, HexCoordIndex } from '../hexgrid/topology'
 
 const el = ref<SVGSVGElement>()
 
@@ -97,14 +131,16 @@ const w = 9
 const h = 15
 
 const hexpoints = () => '-9,-5 -9,5 0,10, 9,5 9,-5 0,-10'
-const coordID = (coord: [number, number]) => `hex${coord[0]}_${coord[1]}`
-const goalID = (coord: [number, number]) => `goal${coord[0]}_${coord[0]}`
-const crateID = (coord: [number, number]) => `crate${coord[0]}_${coord[0]}`
 
-const translate = (val: [number, number]) => {
-  const x = (val[1] * 2 * w) - (val[0] * w)
-  const y = val[0] * h
+const translate = (coord: HexCoord): string => {
+  const [x, y] = coordXY(coord.i, coord.j)
   return `translate(${x}, ${y})`
+}
+
+const coordXY = (i: number, j: number): [number, number] => {
+  const x = (j * 2 * w) - (i * w)
+  const y = i * h
+  return [x, y]
 }
 
 const griddata : PuzzleJSON = {
@@ -159,8 +195,36 @@ class HexView {
   view: [number, number, number, number]
   viewBox: () => string
 
+  _floorCoords: HexCoord[]
+  _floorMap: Map<string, HexCoordIndex>
+  _walls: HexCoord[]
+  _goals: Set<HexCoordIndex>
+  _crates: HexCoord[]
+  _ichiban: HexCoord
+
+  get Terrain () : HexCoord[] {
+    return this._floorCoords
+  }
+
+  get Walls () : HexCoord[] {
+    return this._walls
+  }
+
+  get Goals () : HexCoord[] {
+    return [...this._goals].map((index) => this._floorCoords[index - 1])
+  }
+
+  get Crates () : HexCoord[] {
+    return this._crates
+  }
+
+  get Ichiban () : HexCoord {
+    return this._ichiban
+  }
+
   constructor (el: SVGSVGElement, griddata: PuzzleJSON) {
-    this.view = [-100, -42, 130, 144]
+    this.view = [-100, -100, 200, 200] // arbitrary but sensible default
+    this.viewBox = () => `${this.view[0]} ${this.view[1]} ${this.view[2]} ${this.view[3]}`
     // Identity transform (zero translation and identical projection).
     this.transform = [
       [1, 0, 0],
@@ -168,26 +232,70 @@ class HexView {
       [0, 0, 1]]
     this.svg = el
 
-    if (griddata.terrain.length > 0) {
-      const min = [griddata.terrain[0][0], griddata.terrain[0][1]]
-      const max = [griddata.terrain[0][0], griddata.terrain[0][1]]
+    this._floorCoords = []
+    this._floorMap = new Map<string, HexCoordIndex>()
+    this._walls = []
+    this._crates = []
+    this._goals = new Set<HexCoordIndex>()
+    this._ichiban = TupleToCoord(griddata.init.ichiban) || new HexCoord(0, 0)
 
-      for (const coord of griddata.terrain) {
-        if (coord[0] < min[0]) {
-          min[0] = coord[0]
-        } else if (coord[0] > max[0]) {
-          max[0] = coord[0]
+    if (griddata.terrain.length === 0) {
+      return
+    }
+
+    // Initialize floor from terrain.
+    const min = [griddata.terrain[0][0], griddata.terrain[0][1]]
+    const max = [griddata.terrain[0][0], griddata.terrain[0][1]]
+    for (const tuple of griddata.terrain) {
+      const coord = TupleToCoord(tuple)
+      this._floorCoords.push(coord)
+      this._floorMap.set(coord.key(), this._floorCoords.length)
+    }
+
+    // Build walls from existence of floor tiles.
+    for (const floor of this.Terrain) {
+      for (const coord of [
+        floor,
+        floor.down(),
+        floor.right(),
+        floor.backward(),
+        floor.forward(),
+        floor.left(),
+        floor.up()]) {
+        if (!this._floorMap.has(coord.key())) {
+          this._walls.push(coord)
+        }
+        const [x, y] = coordXY(coord.i, coord.j)
+        if (x - 10 < min[0]) {
+          min[0] = x - 10
+        } else if (x + 10 > max[0]) {
+          max[0] = x + 10
         }
 
-        if (coord[1] < min[1]) {
-          min[1] = coord[1]
-        } else if (coord[1] > max[1]) {
-          max[1] = coord[1]
+        if (y - 11 < min[1]) {
+          min[1] = y - 11
+        } else if (y + 11 > max[1]) {
+          max[1] = y + 11
         }
       }
     }
 
-    this.viewBox = () => `${this.view[0]} ${this.view[1]} ${this.view[2]} ${this.view[3]}`
+    this.view = [
+      min[0], min[1],
+      (max[0] - min[0]),
+      (max[1] - min[1])]
+
+    for (const goal of griddata.init.goals) {
+      const index = this._floorMap.get(TupleToCoord(goal).key())
+      if (index !== undefined) {
+        this._goals.add(index)
+      }
+    }
+
+    for (const crate of griddata.init.crates) {
+      const coord = TupleToCoord(crate)
+      this._crates.push(coord)
+    }
   }
 
   Play () {

@@ -33,6 +33,9 @@ export class HexCoord {
     this.j = j
   }
 
+  // Consistent and unique string value for any (i, j) coordinate value.
+  key (): string { return `${this.i}_${this.j}` }
+
   // Neighbor coordinates from this HexCoord (i, j) via six cardinal directions.
   // May not necessarily exist in the puzzle's HexGrid;
   // must still be checked with HexGrid.index() or HexGrid.add(), or all neighbors
@@ -46,11 +49,14 @@ export class HexCoord {
   backward (): HexCoord { return new HexCoord(this.i - 1, this.j - 1) }
 }
 
-// Neighbors' relative directions by (right, forward, down, left, backward, up).
-type HexNeighbors = [number, number, number, number, number, number]
-
 // A type alias for the densely-packed index of hex coordinates.
 export type HexCoordIndex = number
+
+// Neighbors' relative directions by (right, forward, down, left, backward, up).
+type HexNeighbors = {
+  from: HexCoordIndex,
+  neighbors: [HexCoordIndex, HexCoordIndex, HexCoordIndex, HexCoordIndex, HexCoordIndex, HexCoordIndex]
+}
 
 // Represents a collection of hex coordinates and valid traversals through them.
 export class HexGrid {
@@ -95,14 +101,17 @@ export class HexGrid {
   // Returns the indices for all six neighbors.
   // Zero values take the place of any neighbors that are not in the HexGrid.
   neighbors (coord: HexCoord): HexNeighbors {
-    const neighbors: HexNeighbors = [
-      this.index(coord.right()),
-      this.index(coord.forward()),
-      this.index(coord.down()),
-      this.index(coord.left()),
-      this.index(coord.backward()),
-      this.index(coord.up())
-    ]
+    const neighbors: HexNeighbors = {
+      from: this.index(coord),
+      neighbors: [
+        this.index(coord.down()),
+        this.index(coord.right()),
+        this.index(coord.backward()),
+        this.index(coord.up()),
+        this.index(coord.left()),
+        this.index(coord.forward())
+      ]
+    }
     return neighbors
   }
 
